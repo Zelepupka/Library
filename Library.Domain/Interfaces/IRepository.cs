@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Library.Domain.Interfaces
@@ -6,10 +8,10 @@ namespace Library.Domain.Interfaces
     public interface IRepository<T>
         where T : class
     {
-        Task<IReadOnlyCollection<T>> GetAllAsync();
-        Task<T> SearchAsync(int id);
-        Task<bool> AddAsync(T item);
-        Task<bool> UpdateAsync(T item);
-        Task<bool> DeleteAsync(int id);
+        Task<IQueryable<T>> GetAllAsync();
+        Task<T> GetAsync(Guid id);
+        Task<T> AddAsync(T item);
+        Task<T> UpdateAsync(T item);
+        Task DeleteAsync(Guid id);
     }
 }

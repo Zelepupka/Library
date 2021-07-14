@@ -11,19 +11,15 @@ namespace Library.DAL.Context
         {
 
         }
-
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server = DESKTOP - BPC41OM\\SQLEXPRESS; Database = Library; Trusted_Connection = True; MultipleActiveResultSets = true");
-        }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             
             modelBuilder.Entity<Book>()
                 .HasMany(c => c.Authors)
@@ -43,12 +39,6 @@ namespace Library.DAL.Context
             modelBuilder.Entity<IdentityRole>()
                 .HasData(new IdentityRole("Admin"),
                          new IdentityRole("User"));
-  
-
-
-
-
-
         }
     }
 }

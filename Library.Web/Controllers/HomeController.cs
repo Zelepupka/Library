@@ -7,22 +7,22 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Library.DAL.Context;
+using Library.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Library.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public ApplicationDbContext db;
-        public HomeController(ILogger<HomeController> logger,ApplicationDbContext _db)
+        public HomeController(ILogger<HomeController> logger)
         {
-            db = _db;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View(db.Users.ToArray());
+            return View();
         }
 
         public IActionResult Privacy()
