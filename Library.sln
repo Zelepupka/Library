@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.DAL", "Library.DAL\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.BLL", "Library.BLL\Library.BLL.csproj", "{E379FBEA-4D7B-458E-9F70-9AB20CCC3FD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Web", "Library.Web\Library.Web.csproj", "{E7685D4B-416F-410F-99D3-946BCB7910EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Web", "Library.Web\Library.Web.csproj", "{E7685D4B-416F-410F-99D3-946BCB7910EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +29,10 @@ Global
 		{E379FBEA-4D7B-458E-9F70-9AB20CCC3FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E379FBEA-4D7B-458E-9F70-9AB20CCC3FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E379FBEA-4D7B-458E-9F70-9AB20CCC3FD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7685D4B-416F-410F-99D3-946BCB7910EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7685D4B-416F-410F-99D3-946BCB7910EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7685D4B-416F-410F-99D3-946BCB7910EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7685D4B-416F-410F-99D3-946BCB7910EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

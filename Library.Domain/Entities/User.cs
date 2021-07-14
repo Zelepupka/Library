@@ -7,6 +7,7 @@ namespace Library.Domain.Entities
     public class User : IdentityUser
     {
         public ICollection<Comment> Comments;
+        public ICollection<Book> Books;
     }
 
 }
