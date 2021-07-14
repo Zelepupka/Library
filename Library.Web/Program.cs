@@ -22,6 +22,5 @@ namespace Library.Web
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-
     }
 }
