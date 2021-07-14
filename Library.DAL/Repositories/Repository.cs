@@ -9,39 +9,43 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library.DAL.Repositories
 {
-    class BaseRepository<TEntity> :IRepository<TEntity> where TEntity : class
+    class Repository<TEntity> :IRepository<TEntity> where TEntity : class
     {
         private ApplicationDbContext _db;
         private DbSet<TEntity> _dbSet;
 
-        public BaseRepository(ApplicationDbContext db)
+        public Repository(ApplicationDbContext db)
         {
             _db = db;
             _dbSet = db.Set<TEntity>();
         }
         public async Task<IQueryable<TEntity>> GetAllAsync()
         {
-            return _dbSet.AsQueryable();
+            return _dbSet.AsQueryable().AsNoTracking();
         }
 
-        public async Task<TEntity> GetAsync(Guid id)
+        public async Task<TEntity> GetAsync(Func<TEntity, bool> predicate)
         {
-            var needEntity = await _dbSet.FindAsync(id);
+            return await _dbSet.FindAsync(predicate);
         }
 
         public async Task<TEntity> AddAsync(TEntity item)
         {
-            throw new NotImplementedException();
+            _dbSet.Add(item);
+            return item;
         }
 
         public async Task<TEntity> UpdateAsync(TEntity item)
         {
-            throw new NotImplementedException();
+            _db.Update(item);
+            return item;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Func<TEntity, bool> predicate)
         {
-            throw new NotImplementedException();
+            var needEntity = await GetAsync(predicate);
+            _dbSet.Remove(needEntity);
         }
+
     }
 }
