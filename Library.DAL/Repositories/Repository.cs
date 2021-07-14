@@ -9,24 +9,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library.DAL.Repositories
 {
-    class BaseRepository<TEntity> :IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> :IRepository<TEntity> 
+        where TEntity : class
     {
         private ApplicationDbContext _db;
         private DbSet<TEntity> _dbSet;
 
-        public BaseRepository(ApplicationDbContext db)
+        public Repository(ApplicationDbContext db)
         {
             _db = db;
             _dbSet = db.Set<TEntity>();
         }
+
         public async Task<IQueryable<TEntity>> GetAllAsync()
         {
             return _dbSet.AsQueryable();
         }
 
-        public async Task<TEntity> GetAsync(Guid id)
+        public async Task<TEntity> GetAsync(Func<TEntity, bool> predicate)
         {
-            var needEntity = await _dbSet.FindAsync(id);
+            return await _dbSet.FindAsync(predicate);
         }
 
         public async Task<TEntity> AddAsync(TEntity item)

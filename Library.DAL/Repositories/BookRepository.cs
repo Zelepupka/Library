@@ -19,35 +19,34 @@ namespace Library.DAL.Repositories
 
         public async Task<IQueryable<Book>> GetAllAsync()
         {
-            return _db.Books;
+            return _db.Books.AsNoTracking();
         }
+
 
         public async Task<Book> GetAsync(Guid id)
         {
-            var needBook = await _db.Books.FirstOrDefaultAsync(b=>b.Id == id);
-            if (needBook == default)
-            {
-                throw new ArgumentNullException(nameof(needBook));
-            }
-            return needBook;
+            return await _db.Books.FirstOrDefaultAsync(b=>b.Id == id);
         }
 
         public async Task<Book> AddAsync(Book item)
         {
             await _db.Books.AddAsync(item);
-            return await GetAsync(item.Id);
+            return item;
         }
 
         public async Task<Book> UpdateAsync(Book item)
         {
             _db.Books.Update(item);
-            return await GetAsync(item.Id);
+            return item;
         }
 
         public async Task DeleteAsync(Guid id)
         {
             var needBook = await GetAsync(id);
-            _db.Books.Remove(needBook);
+            if (needBook != null)
+            { 
+                _db.Books.Remove(needBook);
+            }
         }
     }
 }
