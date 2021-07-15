@@ -40,7 +40,7 @@ namespace Library.BLL.Services
             return _mapper.Map<TDto>(entity);
         }
 
-        protected virtual IQueryable<TEntity> GetFiltered(IQueryable<TEntity> query)
+        protected virtual IQueryable<TEntity> GetFiltered(IQueryable<TEntity> query,TFilter filter)
         {
             return query;
         }
@@ -49,7 +49,7 @@ namespace Library.BLL.Services
         {
             var query = await _uow.GetRepository<TEntity>().GetAllAsync();
 
-            query = GetFiltered(query);
+            query = GetFiltered(query,filters);
 
             // TODO: order by
 

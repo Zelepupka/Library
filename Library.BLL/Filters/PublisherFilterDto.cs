@@ -2,6 +2,6 @@
 {
     public class PublisherFilterDto : BaseFilterDto
     {
-        
+        public string Name { get; set; }
     }
 }

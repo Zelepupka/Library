@@ -2,6 +2,6 @@
 {
     public class GenreFilterDto : BaseFilterDto
     {
-
+        public string Name { get; set; }
     }
 }
