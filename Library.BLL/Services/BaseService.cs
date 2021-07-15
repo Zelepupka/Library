@@ -11,13 +11,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library.BLL.Services
 {
-    //public class BaseFilterDto
-    //{
-    //    public int Skip { get; set; }
-    //    public int Take { get; set; }
-    //    public string OrderBy { get; set; }
-    //}
-
     public abstract class BaseService<TDto, TEntity, TFilter> : IBaseService<TDto, TEntity, TFilter>
         where TDto : class
         where TEntity : class
@@ -58,11 +51,13 @@ namespace Library.BLL.Services
 
             query = GetFiltered(query);
 
+            // TODO: order by
+
             if (filters.Skip >= 0)
                 query = query.Skip(filters.Skip);
 
             if (filters.Take >= 0)
-                query = query.Take(filters.Skip);
+                query = query.Take(filters.Take);
 
             return _mapper.Map<IEnumerable<TDto>>(query.ToList());
         }
