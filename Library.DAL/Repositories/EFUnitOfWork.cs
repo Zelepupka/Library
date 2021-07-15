@@ -1,69 +1,35 @@
-﻿using Library.DAL.Context;
+﻿using System.Collections.Generic;
+using Library.DAL.Context;
 using Library.Domain.Entities;
 using Library.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.DAL.Repositories
 {
     public class EFUnitOfWork : IUnitOfWork
     {
-        private ApplicationDbContext db;
-        private Repository<Author> authorRepository;
-        private Repository<Book> bookRepository;
-        private Repository<Comment> commentRepository;
-        private Repository<Genre> genreRepository;
-        private Repository<Publisher> publisherRepository;
-        public IRepository<Author> Authors
+        private Dictionary<string, object> _repositories { get; set; }
+        private readonly ApplicationDbContext _db;
+
+        public EFUnitOfWork(ApplicationDbContext db)
         {
-            get
-            {
-                if (authorRepository == null)
-                {
-                    authorRepository = new Repository<Author>(db);
-                }
-                return authorRepository;
-            }
+            _db = db;
         }
 
-        public IRepository<Book> Books
+        public IRepository<T> GetRepository<T>() where T : class
         {
-            get
+            if (_repositories == null)
+                _repositories = new Dictionary<string, object>();
+
+            var type = typeof(T).Name;
+
+            if (!_repositories.ContainsKey(type))
             {
-                if (bookRepository == null)
-                {
-                    bookRepository = new Repository<Book>(db);
-                }
-                return bookRepository;
+                _repositories.Add(type,new Repository<T>(_db));
             }
+            return (Repository<T>) _repositories[type];
+
         }
-        public IRepository<Comment> Comments {
-            get
-            {
-                if (commentRepository == null)
-                {
-                    commentRepository = new Repository<Comment>(db);
-                }
-                return commentRepository;
-            }
-        }
-        public IRepository<Genre> Genres {
-            get
-            {
-                if (genreRepository == null)
-                {
-                    genreRepository = new Repository<Genre>(db);
-                }
-                return genreRepository;
-            }
-        }
-        public IRepository<Publisher> Publishers {
-            get
-            {
-                if (publisherRepository == null)
-                {
-                    publisherRepository = new Repository<Publisher>(db);
-                }
-                return publisherRepository;
-            }
-        }
+
     }
 }

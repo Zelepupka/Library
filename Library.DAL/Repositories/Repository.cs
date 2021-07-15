@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library.DAL.Repositories
 {
-    class BaseRepository<TEntity> :IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> :IRepository<TEntity> where TEntity : class
     {
-        private ApplicationDbContext _db;
-        private DbSet<TEntity> _dbSet;
+        private readonly ApplicationDbContext _db;
+        private readonly DbSet<TEntity> _dbSet;
 
         public Repository(ApplicationDbContext db)
         {
@@ -32,7 +32,7 @@ namespace Library.DAL.Repositories
 
         public async Task<TEntity> AddAsync(TEntity item)
         {
-            _dbSet.Add(item);
+            await _dbSet.AddAsync(item);
             return item;
         }
 

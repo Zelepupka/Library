@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210714081739_Initial")]
-    partial class Initial
+    [Migration("20210715052351_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -111,10 +111,7 @@ namespace Library.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("BookId1")
+                    b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
@@ -123,17 +120,14 @@ namespace Library.DAL.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId1");
+                    b.HasIndex("BookId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -260,14 +254,14 @@ namespace Library.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b845c59b-bddf-47d1-aad4-c844466baf18",
-                            ConcurrencyStamp = "ab0c09b2-7e1b-472e-bb18-53f0eb6539ec",
+                            Id = "e44e6b33-a72d-443d-afef-82bdd18c3ffe",
+                            ConcurrencyStamp = "a118afd3-b732-4b1a-a828-6ed45f516490",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "aa50d47d-14ef-4177-b8d6-7e3d913ebf2c",
-                            ConcurrencyStamp = "b03a243f-72aa-49f8-981a-7015a9974c55",
+                            Id = "6747b1ff-c41c-43a4-9b35-30c3992b3970",
+                            ConcurrencyStamp = "fa694640-7b15-4408-8cd7-4e5bc7712119",
                             Name = "User"
                         });
                 });
@@ -436,11 +430,13 @@ namespace Library.DAL.Migrations
                 {
                     b.HasOne("Library.Domain.Entities.Book", "Book")
                         .WithMany("Comments")
-                        .HasForeignKey("BookId1");
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Library.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Book");
 
@@ -506,6 +502,11 @@ namespace Library.DAL.Migrations
             modelBuilder.Entity("Library.Domain.Entities.Publisher", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Library.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

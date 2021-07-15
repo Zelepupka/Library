@@ -39,6 +39,15 @@ namespace Library.DAL.Context
             modelBuilder.Entity<IdentityRole>()
                 .HasData(new IdentityRole("Admin"),
                          new IdentityRole("User"));
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Comments)
+                .WithOne(c => c.User)
+                .HasForeignKey(c => c.UserId);
+            modelBuilder.Entity<Book>()
+                .HasMany(b => b.Comments)
+                .WithOne(c => c.Book)
+                .HasForeignKey(c => c.BookId);
+
         }
     }
 }
