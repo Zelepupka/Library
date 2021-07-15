@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Library.DAL.Context;
 using Library.Domain.Entities;
 using Library.Domain.Interfaces;
@@ -28,7 +29,11 @@ namespace Library.DAL.Repositories
                 _repositories.Add(type,new Repository<T>(_db));
             }
             return (Repository<T>) _repositories[type];
+        }
 
+        public async Task SaveChangesAsync()
+        {
+            await _db.SaveChangesAsync();
         }
 
     }

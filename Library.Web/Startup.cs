@@ -13,7 +13,6 @@ using Library.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Library.Web
 {
     public class Startup
@@ -32,6 +31,8 @@ namespace Library.Web
             services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // TODO: initialize automapper
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
