@@ -15,9 +15,9 @@ namespace Library.BLL.Services
         }
         protected override IQueryable<Publisher> GetFiltered(IQueryable<Publisher> query, PublisherFilterDto filter)
         {
-            if (filter.Name != null)
+            if (!string.IsNullOrEmpty(filter.Name))
             {
-                query = query.Where(p => p.Name.Contains(filter.Name));
+                query = query.Where(p => p.Name.ToLower().Contains(filter.Name.ToLower()));
             }
             return query;
         }

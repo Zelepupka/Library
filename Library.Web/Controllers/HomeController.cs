@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Library.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace Library.Web.Controllers
@@ -9,13 +12,13 @@ namespace Library.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+     
         public HomeController(ILogger<HomeController> logger)
         {
-            
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }

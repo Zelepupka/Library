@@ -15,9 +15,10 @@ namespace Library.BLL.Services
 
         protected override IQueryable<Genre> GetFiltered(IQueryable<Genre> query,GenreFilterDto filter)
         {
-            if (filter.Name != null)
+          
+            if (!string.IsNullOrEmpty(filter.Name))
             {
-                query = query.Where(g => g.Name.Contains(filter.Name));
+                query = query.Where(g => g.Name.ToLower().Contains(filter.Name.ToLower()));
             }
             return query;
         }

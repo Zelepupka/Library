@@ -150,8 +150,8 @@ namespace Library.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -252,14 +252,14 @@ namespace Library.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e44e6b33-a72d-443d-afef-82bdd18c3ffe",
-                            ConcurrencyStamp = "a118afd3-b732-4b1a-a828-6ed45f516490",
+                            Id = "d7d7b6b0-4a8b-4f9a-92ee-4f2693f606a5",
+                            ConcurrencyStamp = "a66a532e-4515-43b0-879d-e35730afedce",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "6747b1ff-c41c-43a4-9b35-30c3992b3970",
-                            ConcurrencyStamp = "fa694640-7b15-4408-8cd7-4e5bc7712119",
+                            Id = "134f4034-4973-467c-adce-5c8dc71c210d",
+                            ConcurrencyStamp = "c5049883-edd7-40a3-ae13-43c1668c141b",
                             Name = "User"
                         });
                 });

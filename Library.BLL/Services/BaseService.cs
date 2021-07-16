@@ -46,9 +46,12 @@ namespace Library.BLL.Services
         }
 
         public async Task<IEnumerable<TDto>> SearchFor(TFilter filters)
-        {
+        {   
             var query = await _uow.GetRepository<TEntity>().GetAllAsync();
-
+            if (filters == null)
+            {
+                return _mapper.Map<IEnumerable<TDto>>(query.ToList());
+            }
             query = GetFiltered(query,filters);
 
             // TODO: order by

@@ -76,7 +76,7 @@ namespace Library.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -311,12 +311,12 @@ namespace Library.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "e44e6b33-a72d-443d-afef-82bdd18c3ffe", "a118afd3-b732-4b1a-a828-6ed45f516490", "Admin", null });
+                values: new object[] { "d7d7b6b0-4a8b-4f9a-92ee-4f2693f606a5", "a66a532e-4515-43b0-879d-e35730afedce", "Admin", null });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "6747b1ff-c41c-43a4-9b35-30c3992b3970", "fa694640-7b15-4408-8cd7-4e5bc7712119", "User", null });
+                values: new object[] { "134f4034-4973-467c-adce-5c8dc71c210d", "c5049883-edd7-40a3-ae13-43c1668c141b", "User", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -10,8 +10,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Library.DAL.Context;
 using Library.Domain.Entities;
+using Library.Web.Config;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using Library.Web.AutoMapperProfiles;
 
 namespace Library.Web
 {
@@ -31,8 +34,8 @@ namespace Library.Web
             services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
-            // TODO: initialize automapper
+            services.ConfigDependencies();
+            services.AddAutoMapper(typeof(GenreProfile),typeof(AuthorProfile),typeof(BookProfile),typeof(PublisherProfile),typeof(CommentProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
