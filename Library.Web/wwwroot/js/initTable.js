@@ -6,7 +6,6 @@ function InitTable() {
             "serverSide": true,
             "filter": true,
             "orderMulti": false,
-            "pageLength": 5,
             "ajax": {
                 "url": "/Genres/LoadData",
                 "type": "POST",
