@@ -3,48 +3,30 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    Layout = null;
     ViewData["Title"] = "Genres";
 }
-<main>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+<table id="genre-table" class="table table-striped" style="width: 100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+@section Scripts
+{
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/initTable.js"></script>
     <script>
-        $(document).ready(function () {
-            $("#genre-table").DataTable({
-                "processing": true, 
-                "serverSide": true, 
-                "filter": true, 
-                "orderMulti": false,
-                "ajax": {
-                    "url": "/Genres/LoadData",
-                    "type": "POST",
-                    "datatype": "json"
-                },
-
-                "columns": [
-                    { "data": "id", "name": "Id", "autoWidth": true },
-                    { "data": "name", "name": "Name", "autoWidth": true }
-                ]
-
-
-            });
+        $(function (){
+            InitTable();
         });
+
     </script>
+}
 
-
-    <table id="genre-table" class="table table-striped" style="width: 100%">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-
-</main>
