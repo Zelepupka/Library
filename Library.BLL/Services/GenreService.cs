@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using Library.BLL.DTO;
 using Library.BLL.Filters;
@@ -7,7 +8,7 @@ using Library.Domain.Interfaces;
 
 namespace Library.BLL.Services
 {
-    public class GenreService : BaseService<GenreDTO,Genre,GenreFilterDto>
+    public class GenreService : BaseService<GenreDTO,Genre,GenreFilterDto,Guid>
     {
         public GenreService(IUnitOfWork uow, IMapper mapper) : base(uow, mapper)
         {

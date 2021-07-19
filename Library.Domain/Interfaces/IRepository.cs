@@ -12,6 +12,6 @@ namespace Library.Domain.Interfaces
         Task<T> GetAsync(Func<T, bool> predicate);
         Task<T> AddAsync(T item);
         Task<T> UpdateAsync(T item);
-        Task DeleteAsync(Func<T, bool> predicate);
+        Task DeleteAsync(T item);
     }
 }

@@ -4,17 +4,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.Configuration.Annotations;
+using Library.BLL.DTO;
 using Library.BLL.Filters;
 using Library.BLL.Interfaces;
+using Library.Domain.AbstractClasses;
+using Library.Domain.Entities;
 using Library.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.BLL.Services
 {
-    public abstract class BaseService<TDto, TEntity, TFilter> : IBaseService<TDto, TEntity, TFilter>
+    public class ServiceResult
+    {
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; }
+    }
+
+    public class ServiceResult<TResult> : ServiceResult
+    {
+        public TResult Result { get; set; }
+    }
+
+    public abstract class BaseService<TDto, TEntity, TFilter, TKey> : IBaseService<TDto, TEntity, TFilter,TKey>
         where TDto : class
-        where TEntity : class
+        where TEntity : BaseEntity<TKey>
         where TFilter : BaseFilterDto
+        where TKey : IEquatable<TKey>
     {
 
         private IUnitOfWork _uow;
@@ -45,15 +60,18 @@ namespace Library.BLL.Services
             return query;
         }
 
-        public async Task<IEnumerable<TDto>> SearchFor(TFilter filters)
-        {   
+        public async Task<QueryDTO<TDto>> SearchFor(TFilter filters)
+        {
+            var result = new QueryDTO<TDto>();
             var query = await _uow.GetRepository<TEntity>().GetAllAsync();
             if (filters == null)
             {
-                return _mapper.Map<IEnumerable<TDto>>(query.ToList());
+                result.Count = query.Count();
+                result.Items = _mapper.Map<IEnumerable<TDto>>(query.ToList());
+                return result;
             }
             query = GetFiltered(query,filters);
-
+            result.Count = query.Count();
             // TODO: order by
 
             if (filters.Skip >= 0)
@@ -61,8 +79,9 @@ namespace Library.BLL.Services
 
             if (filters.Take >= 0)
                 query = query.Take(filters.Take);
+            result.Items = _mapper.Map<IEnumerable<TDto>>(query.ToList());
 
-            return _mapper.Map<IEnumerable<TDto>>(query.ToList());
+            return result;
         }
 
         public async Task<TDto> GetAsync(Func<TEntity, bool> predicate)
@@ -71,9 +90,10 @@ namespace Library.BLL.Services
             return _mapper.Map<TDto>(needItem);
         }
 
-        public async Task DeleteAsync(Func<TEntity, bool> predicate)
+        public async Task DeleteAsync(TKey id)
         {
-            await _uow.GetRepository<TEntity>().DeleteAsync(predicate);
+            var entity = _mapper.Map<TEntity>(await GetAsync(x => x.Id.Equals(id)));
+            await _uow.GetRepository<TEntity>().DeleteAsync(entity);
             await _uow.SaveChangesAsync();
         }
 

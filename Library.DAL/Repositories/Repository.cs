@@ -42,10 +42,9 @@ namespace Library.DAL.Repositories
             return item;
         }
 
-        public async Task DeleteAsync(Func<TEntity, bool> predicate)
-        {
-            var needEntity = await GetAsync(predicate);
-            _dbSet.Remove(needEntity);
+        public async Task DeleteAsync(TEntity item)
+        { 
+            _dbSet.Remove(item);
         }
 
     }

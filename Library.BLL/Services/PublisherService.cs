@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using Library.BLL.DTO;
 using Library.BLL.Filters;
@@ -7,7 +8,7 @@ using Library.Domain.Interfaces;
 
 namespace Library.BLL.Services
 {
-    public class PublisherService : BaseService<PublisherDTO,Publisher,PublisherFilterDto>
+    public class PublisherService : BaseService<PublisherDTO,Publisher,PublisherFilterDto,Guid>
     {
         public PublisherService(IUnitOfWork uow, IMapper mapper) : base(uow, mapper)
         {
