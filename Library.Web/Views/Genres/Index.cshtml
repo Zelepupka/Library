@@ -38,10 +38,10 @@
                 { 'data': 'id', 'name': 'Id', 'autoWidth': true },
                 { 'data': 'name', 'name': 'Name', 'autoWidth': true },
                 {
-                    "render": function (data, row) { return '<a class="btn btn-info" href="/Genres/Edit' + row.id + '">Edit</a>'; }
+                    "render": function(data, row) { return '<a class="btn btn-info" href="/Genres/Edit' + row.id + '">Edit</a>'; }
                 },
                 {
-                    render: function (data, row) { return "<a  class='btn btn-danger' onclick=AjaxDelete('" + row.name + "'); >Delete</a>"; }
+                    render: function(data, row) { return "<a  class='btn btn-danger' onclick=AjaxDelete('" + row.name + "'); >Delete</a>"; }
                 }
             ],
             dataSource: {
@@ -51,8 +51,21 @@
             }
 
         }
-        $(function () {
+        $(function() {
             InitTable(myOptions);
+
+            $('button').click(function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: '/Genres/Edit',
+                    type: 'POST',
+                    data: $frm.serialize(),
+                    success: function() {
+                        InitTable(myOptions);
+                    }
+                });
+            });
         });
     </script>
 
@@ -62,7 +75,7 @@
                 type: "GET",
                 url: '/Genres/Add',
                 dataType: 'html',
-                success: function (data) {
+                success: function(data) {
                     console.log(data);
                     $('#formBody').html(data);
                     $('#formBody').show();
@@ -81,7 +94,7 @@
                     Id: document.getElementById('idBox').textContent,
                     Name: document.getElementById('nameBox').textContent
                 },
-                success: function () {
+                success: function() {
                     InitTable(myOptions);
                 }
             });
@@ -94,7 +107,7 @@
                 url: '/Genres/Delete',
                 type: 'GET',
                 data: id,
-                success: function () {
+                success: function() {
                     InitTable(myOptions);
                 }
             });
