@@ -36,6 +36,11 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+            @{
+                await Html.RenderPartialAsync("_Modals");
+            }
+            
+
         </main>
     </div>
 

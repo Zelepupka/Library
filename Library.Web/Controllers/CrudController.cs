@@ -16,6 +16,7 @@ namespace Library.Web.Controllers
         where TEntity : BaseEntity<TKey>
         where TFilter : BaseFilterDto
         where TKey : IEquatable<TKey>
+        where TViewModel : new()
     {
         protected BaseService<TDto, TEntity, TFilter, TKey> _service;
         protected IMapper _mapper;
@@ -27,46 +28,35 @@ namespace Library.Web.Controllers
         }
 
         [HttpGet]
-        protected virtual async Task<IActionResult> Add()
+        public virtual async Task<IActionResult> Add()
         {
-            return View();
+            return PartialView("Partials/Edit",new TViewModel());
         }
 
-        [HttpPost]
-        protected virtual async Task<IActionResult> Add(TViewModel item)
-        {
-            if (ModelState.IsValid)
-            {
-                var dto = _mapper.Map<TDto>(item);
-                await _service.AddAsync(dto);
-            }
-            return RedirectToAction("Index");
-        }
 
         [HttpGet]
-        protected virtual async Task Delete(TKey id)
+        public virtual async Task Delete(TKey id)
         {
             await _service.DeleteAsync(id);
         }
 
         [HttpGet]
-        protected virtual async Task<IActionResult> Edit(TKey id)
+        public virtual async Task<IActionResult> Edit(TKey id)
         {
             var dto = await _service.GetAsync(x=>x.Id.Equals(id));
-
             var viewModel = _mapper.Map<TViewModel>(dto);
             return View(viewModel);
         }
 
         [HttpPost]
-        protected virtual async Task<IActionResult> Edit(TViewModel model)
+        public virtual async Task Edit(TViewModel model)
         {
+
             if (ModelState.IsValid)
             {
                 var dto = _mapper.Map<TDto>(model);
                 await _service.UpdateAsync(dto);
             }
-            return RedirectToAction("Index");
         }
         //[HttpPost]
         //public async Task<IActionResult> LoadData(JsTable tableInfo)

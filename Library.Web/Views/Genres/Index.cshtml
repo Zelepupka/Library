@@ -6,17 +6,22 @@
     ViewData["Title"] = "Genres";
 }
 
+
 <table id="genre-table" class="table table-striped" style="width: 100%">
     <thead>
         <tr>
             <th>Id</th>
             <th>Name</th>
-            <th></th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
     </tbody>
 </table>
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalWindow" onclick="AjaxGet()">Add Genre</button>
+<button onclick="AjaxDelete('4B85F8A2 - 46EA - 464F - 8722 - 08D94B58075E')">Проверка удаления</button>
+<a asp-action="Delete" asp-route-id='4B85F8A2 - 46EA - 464F - 8722 - 08D94B58075E'>Проверка удаления</a>
 
 @section Scripts
 {
@@ -24,6 +29,7 @@
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
     <script src="~/js/initTable.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script>
 
         var myOptions = {
@@ -32,7 +38,10 @@
                 { 'data': 'id', 'name': 'Id', 'autoWidth': true },
                 { 'data': 'name', 'name': 'Name', 'autoWidth': true },
                 {
-                    "render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/Genres/Edit">Edit</a>'; }
+                    "render": function (data, row) { return '<a class="btn btn-info" href="/Genres/Edit' + row.id + '">Edit</a>'; }
+                },
+                {
+                    render: function (data, row) { return "<a  class='btn btn-danger' onclick=AjaxDelete('" + row.name + "'); >Delete</a>"; }
                 }
             ],
             dataSource: {
@@ -42,10 +51,55 @@
             }
 
         }
-        $(function() {
+        $(function () {
             InitTable(myOptions);
         });
+    </script>
 
+    <script>
+        function AjaxGet() {
+            $.ajax({
+                type: "GET",
+                url: '/Genres/Add',
+                dataType: 'html',
+                success: function (data) {
+                    console.log(data);
+                    $('#formBody').html(data);
+                    $('#formBody').show();
+                }
+            });
+
+        }
+    </script>
+
+    <script>
+        function AjaxPost() {
+            $.ajax({
+                url: '/Genres/Edit',
+                type: 'POST',
+                data: {
+                    Id: document.getElementById('idBox').textContent,
+                    Name: document.getElementById('nameBox').textContent
+                },
+                success: function () {
+                    InitTable(myOptions);
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function AjaxDelete(id) {
+            $.ajax({
+                url: '/Genres/Delete',
+                type: 'GET',
+                data: id,
+                success: function () {
+                    InitTable(myOptions);
+                }
+            });
+        }
     </script>
 }
+
 

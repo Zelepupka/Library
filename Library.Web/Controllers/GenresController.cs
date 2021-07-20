@@ -49,5 +49,7 @@ namespace Library.Web.Controllers
 
             return Json(new { draw = tableInfo.Draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data.ToList()});
         }
+
+       
     }
 }
