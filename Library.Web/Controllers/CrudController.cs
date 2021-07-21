@@ -34,30 +34,31 @@ namespace Library.Web.Controllers
         }
 
 
-        [HttpGet]
-        public virtual async Task Delete(TKey id)
+        [HttpPost]
+        public virtual async Task Delete(TKey Id)
         {
-            await _service.DeleteAsync(id);
+            await _service.DeleteAsync(Id);
         }
 
         [HttpGet]
         public virtual async Task<IActionResult> Edit(TKey id)
         {
             var dto = await _service.GetAsync(x=>x.Id.Equals(id));
+
             var viewModel = _mapper.Map<TViewModel>(dto);
-            return View(viewModel);
+
+            return PartialView("Partials/Edit", viewModel);
         }
 
         [HttpPost]
         public virtual async Task Edit(TViewModel model)
         {
+            var dto = _mapper.Map<TDto>(model);
 
-            if (ModelState.IsValid)
-            {
-                var dto = _mapper.Map<TDto>(model);
-                await _service.UpdateAsync(dto);
-            }
+            await _service.UpdateAsync(dto);
         }
+
+        //TODO: implement LoadData method
         //[HttpPost]
         //public async Task<IActionResult> LoadData(JsTable tableInfo)
         //{

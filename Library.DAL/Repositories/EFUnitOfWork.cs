@@ -25,9 +25,8 @@ namespace Library.DAL.Repositories
             var type = typeof(T).Name;
 
             if (!_repositories.ContainsKey(type))
-            {
                 _repositories.Add(type,new Repository<T>(_db));
-            }
+
             return (Repository<T>) _repositories[type];
         }
 

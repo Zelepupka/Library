@@ -33,6 +33,7 @@ namespace Library.Web.Controllers
             var searchValue = Request.Form["search[value]"];
 
             var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+
             var sortColumnDir = Request.Form["order[0][dir]"].FirstOrDefault();
 
             int pageSize = tableInfo.Length != null ? Convert.ToInt32(tableInfo.Length) : 0;

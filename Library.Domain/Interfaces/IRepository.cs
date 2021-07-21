@@ -9,9 +9,13 @@ namespace Library.Domain.Interfaces
         where T : class
     {
         Task<IQueryable<T>> GetAllAsync();
+
         Task<T> GetAsync(Func<T, bool> predicate);
+
         Task<T> AddAsync(T item);
+
         Task<T> UpdateAsync(T item);
+
         Task DeleteAsync(T item);
     }
 }

@@ -7,10 +7,8 @@ namespace Library.DAL.Context
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext(DbContextOptions options) : base(options)
-        {
+        public ApplicationDbContext(DbContextOptions options) : base(options) { }
 
-        }
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
@@ -47,7 +45,6 @@ namespace Library.DAL.Context
                 .HasMany(b => b.Comments)
                 .WithOne(c => c.Book)
                 .HasForeignKey(c => c.BookId);
-
         }
     }
 }

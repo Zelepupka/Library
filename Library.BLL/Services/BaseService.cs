@@ -31,7 +31,6 @@ namespace Library.BLL.Services
         where TFilter : BaseFilterDto
         where TKey : IEquatable<TKey>
     {
-
         private IUnitOfWork _uow;
         private IMapper _mapper;
 
@@ -63,15 +62,22 @@ namespace Library.BLL.Services
         public async Task<QueryDTO<TDto>> SearchFor(TFilter filters)
         {
             var result = new QueryDTO<TDto>();
+
             var query = await _uow.GetRepository<TEntity>().GetAllAsync();
+
             if (filters == null)
             {
                 result.Count = query.Count();
+                
                 result.Items = _mapper.Map<IEnumerable<TDto>>(query.ToList());
+
                 return result;
             }
+
             query = GetFiltered(query,filters);
+
             result.Count = query.Count();
+
             // TODO: order by
 
             if (filters.Skip >= 0)
@@ -79,6 +85,7 @@ namespace Library.BLL.Services
 
             if (filters.Take >= 0)
                 query = query.Take(filters.Take);
+
             result.Items = _mapper.Map<IEnumerable<TDto>>(query.ToList());
 
             return result;
@@ -87,14 +94,20 @@ namespace Library.BLL.Services
         public async Task<TDto> GetAsync(Func<TEntity, bool> predicate)
         {
             var needItem = await _uow.GetRepository<TEntity>().GetAsync(predicate);
+
             return _mapper.Map<TDto>(needItem);
         }
 
         public async Task DeleteAsync(TKey id)
         {
-            var entity = _mapper.Map<TEntity>(await GetAsync(x => x.Id.Equals(id)));
-            await _uow.GetRepository<TEntity>().DeleteAsync(entity);
-            await _uow.SaveChangesAsync();
+            var entity = await _uow.GetRepository<TEntity>().GetAsync(x => x.Id.Equals(id));
+
+            if (entity != null)
+            {
+                await _uow.GetRepository<TEntity>().DeleteAsync(entity);
+
+                await _uow.SaveChangesAsync();
+            }
         }
 
         public async Task<TDto> UpdateAsync(TDto dto)
@@ -107,7 +120,6 @@ namespace Library.BLL.Services
             entity = await _uow.GetRepository<TEntity>().UpdateAsync(entity);
 
             await _uow.SaveChangesAsync();
-
 
             return _mapper.Map<TDto>(entity);
         }

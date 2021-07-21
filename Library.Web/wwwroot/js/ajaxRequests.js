@@ -1,39 +1,24 @@
-﻿function AjaxGet() {
+﻿
+function ajaxGet(options) {
         $.ajax({
-            type: "GET",
-            url: '/Genres/Add',
-            dataType: 'html',
-            success: function(data) {
-                console.log(data);
+            type: options.type,
+            url: options.url,
+            dataType: options.dataType,
+            success: function (data)
+            {
                 $('#formBody').html(data);
                 $('#formBody').show();
             }
         });
-
 }
 
-function AjaxPost() {
-        $.ajax({
-            url: '/Genres/Edit',
-            type: 'POST',
-            data: {
-                Id: document.getElementById('idBox').textContent,
-                Name: document.getElementById('nameBox').textContent
-            },
-            success: function() {
-               
-            }
-        });
+function ajaxPost(options) {
+    $.ajax({
+        url: options.url,
+        type: options.type,
+        data: options.data,
+        success: function() {
+            $('#genre-table').DataTable().draw();
+        }
+    });
 }
-
-function AjaxDelete(id) {
-        $.ajax({
-            url: '/Genres/Delete',
-            type: 'GET',
-            data: id,
-            success: function() {
-               
-            }
-        });
-}
-  
