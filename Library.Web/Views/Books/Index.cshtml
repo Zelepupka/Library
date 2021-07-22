@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Books";
+}
+<table id="book-table" class="table table-striped" style="width: 100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Publication Date</th>
+            <th>Publication Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalWindow" onclick="ajaxBookAddGet()">Add Book</button>
+
+@section Scripts
+{
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/initTable.js"></script>
+    <script src="~/js/app/manageBooks.js"></script>
+    <script src="~/js/ajaxRequests.js"></script>
+    <script src="~/js/Moment.js"></script>
+}

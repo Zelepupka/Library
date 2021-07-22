@@ -9,7 +9,9 @@ namespace Library.Web.AutoMapperProfiles
     {
         public BookProfile()
         {
-            CreateMap<Book, BookDTO>();
+            CreateMap<Book, BookDTO>()
+                .ForMember(b => b.PublisherName, act => act.MapFrom(b => b.Publisher.Name));
+
             CreateMap<BookDTO,Book>();
             CreateMap<BookDTO,BookViewModel>();
             CreateMap<BookViewModel, BookDTO>();

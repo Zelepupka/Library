@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Authors";
+}
+
+<table id="author-table" class="table table-striped" style="width: 100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>First name</th>
+            <th>Surname</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalWindow" onclick="ajaxAuthorAddGet()">Add Author</button>
+
+
+@section Scripts
+{
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/initTable.js"></script>
+    <script src="~/js/app/manageAuthors.js"></script>
+    <script src="~/js/ajaxRequests.js"></script>
+}

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Library.BLL.Services;
 using Library.DAL.Repositories;
+using Library.Domain.Entities;
 using Library.Domain.Interfaces;
 using Library.Web.AutoMapperProfiles;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,8 @@ namespace Library.Web.Config
             services.AddScoped<GenreService>();
             services.AddScoped<PublisherService>();
             services.AddScoped<AuthorService>();
+            services.AddScoped<BookService>();
+            services.AddScoped<Repository<Publisher>>();
         }
 
        

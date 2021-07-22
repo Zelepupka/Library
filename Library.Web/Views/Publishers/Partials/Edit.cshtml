@@ -1,0 +1,13 @@
+﻿@model Library.Web.ViewModels.PublisherViewModel
+
+<div id="formBody" class="modal-body">
+    <form id="publisherEdit">
+        <label>Publisher Name: </label>
+        <input type="text" value="@Model.Name" name="Name"/>
+        <input type="hidden" name="@Model.Id"/>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="ajaxPublisherEditPost()">Save</button>
+</div>

@@ -1,5 +1,5 @@
 ﻿var genreOptions = {
-    table: '#genre-table',
+    table: { Id: '#genre-table'},
     columns: [
         { 'data': 'id', 'name': 'GenreId', 'autoWidth': true },
         { 'data': 'name', 'name': 'Name', 'autoWidth': true },
@@ -24,7 +24,6 @@ function ajaxGenreAddGet() {
     {
         type: 'GET',
         url: '/Genres/Add',
-        dataType: 'html'
     }
     ajaxGet(options);
 }
@@ -32,6 +31,9 @@ function ajaxGenreAddGet() {
 function ajaxGenreEditPost() {
     var options =
     {
+        table:{
+            Id : '#genre-table'
+        },
         type: 'POST',
         url: '/Genres/Edit',
         data: $('#genreEdit').serialize()
@@ -44,7 +46,6 @@ function ajaxGenreEditGet(genreId) {
     {
         type: 'GET',
         url: '/Genres/Edit/' + genreId,
-        datatype:'html',
         data: $('#genreEdit').serialize()
     }
     ajaxGet(options);
@@ -53,11 +54,14 @@ function ajaxGenreDeletePost(genreId) {
 
     var options =
     {
+        table: {
+            Id: '#genre-table'
+        },
         data: {
             Id: genreId
         },
         type: 'POST',
-        url: 'Genres/Delete'
+        url: '/Genres/Delete'
     }
     ajaxPost(options);
 }

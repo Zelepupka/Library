@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Publishers";
+}
+
+<table id="publisher-table" class="table table-striped" style="width: 100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalWindow" onclick="ajaxPublisherAddGet()">Add Publisher</button>
+
+
+@section Scripts
+{
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/initTable.js"></script>
+    <script src="~/js/app/managePublishers.js"></script>
+    <script src="~/js/ajaxRequests.js"></script>
+}

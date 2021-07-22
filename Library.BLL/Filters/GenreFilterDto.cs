@@ -1,7 +1,9 @@
-﻿namespace Library.BLL.Filters
+﻿using AFS.Web.Models.DataTable;
+
+namespace Library.BLL.Filters
 {
     public class GenreFilterDto : BaseFilterDto
     {
-        public string Name { get; set; }
+        public DataTableSearchViewModel Search{ get; set; }
     }
 }

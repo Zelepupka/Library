@@ -1,0 +1,23 @@
+﻿@using Library.BLL.Services
+@using Library.DAL.Repositories
+@using Library.Domain.Entities
+@model Library.Web.ViewModels.BookViewModel
+
+<div id="formBody" class="modal-body">
+    <form id="bookEdit">
+        <label>Book Name:</label>
+        <input type="text" value="@Model.Name" name="Name" />
+        <br/>
+        <label>Publication Date:</label>
+        <input type="date" value="@Model.PublicationDate" name="PublicationDate" />
+        <input type="hidden" name="@Model.Id" />
+        <br/>
+        <select name="PublisherId">
+
+        </select>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="ajaxBookEditPost()">Save</button>
+</div>

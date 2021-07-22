@@ -1,0 +1,17 @@
+﻿@model Library.Web.ViewModels.AuthorViewModel
+
+<div id="formBody" class="modal-body">
+    <form class="container" id="authorEdit">
+        <label>Author First name: </label>
+        <input type="text" value="@Model.FirstName" name="FirstName"/>
+        <br/>
+        <br/>
+        <label>Author Surname:</label>
+        <input type="text" value="@Model.Surname" name="Surname"/>
+        <input type="hidden" name="Id" value="@Model.Id"/>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="ajaxAuthorEditPost()">Save</button>
+</div>

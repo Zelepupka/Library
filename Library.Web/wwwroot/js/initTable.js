@@ -1,7 +1,7 @@
 ﻿
 function InitTable(options) {
     $(document).ready(function () {
-        $(options.table).DataTable({
+        $(options.table.Id).DataTable({
             'processing': true,
             'serverSide': true,
             'filter': true,

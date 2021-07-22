@@ -81,10 +81,10 @@ namespace Library.BLL.Services
             // TODO: order by
 
             if (filters.Skip >= 0)
-                query = query.Skip(filters.Skip);
+                query = query.Skip(filters.Start);
 
-            if (filters.Take >= 0)
-                query = query.Take(filters.Take);
+            if (filters.Length >= 0)
+                query = query.Take(filters.Length);
 
             result.Items = _mapper.Map<IEnumerable<TDto>>(query.ToList());
 

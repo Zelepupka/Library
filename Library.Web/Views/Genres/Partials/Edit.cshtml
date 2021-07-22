@@ -1,8 +1,13 @@
 ﻿@model Library.Web.ViewModels.GenreViewModel
 
-<form id="genreEdit">
-    <label>Genre Name: </label>
-    <input type="text" value="@Model.Name" name="Name"  />
-    <input type="hidden" value="@Model.Id" name="Id"/>
-</form>
+<div id="formBody" class="modal-body">
+    <form id="genreEdit">
+        <label>Genre Name: </label>
+        <input type="text" value="@Model.Name" name="Name" />
+        <input type="hidden" name="@Model.Id" />
+    </form>
+</div>
 
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="ajaxGenreEditPost()">Save</button>
+</div>

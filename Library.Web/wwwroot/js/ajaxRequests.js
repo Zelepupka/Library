@@ -3,11 +3,11 @@ function ajaxGet(options) {
         $.ajax({
             type: options.type,
             url: options.url,
-            dataType: options.dataType,
+            dataType: 'html',
             success: function (data)
             {
-                $('#formBody').html(data);
-                $('#formBody').show();
+                $('#ajaxPart').html(data);
+                $('#ajaxPart').show();
             }
         });
 }
@@ -18,7 +18,7 @@ function ajaxPost(options) {
         type: options.type,
         data: options.data,
         success: function() {
-            $('#genre-table').DataTable().draw();
+            $(options.table.Id).DataTable().draw();
         }
     });
 }

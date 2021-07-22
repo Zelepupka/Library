@@ -2,7 +2,7 @@
 
 namespace Library.BLL.Filters
 {
-    public class PublisherFilterDto : BaseFilterDto
+    public class BookFilterDto : BaseFilterDto
     {
         public DataTableSearchViewModel Search { get; set; }
     }
