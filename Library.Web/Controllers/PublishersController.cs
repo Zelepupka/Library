@@ -13,7 +13,7 @@ using Library.Web.ViewModels;
 
 namespace Library.Web.Controllers
 {
-    public class PublishersController : CrudController<PublisherViewModel,PublisherDTO,Publisher,PublisherFilterDto,Guid,DataTableBookAjaxPostViewModel>
+    public class PublishersController : CrudController<PublisherViewModel,PublisherDTO,Publisher,PublisherFilterDto,Guid,DataTablePublisherViewModel>
     {
         public PublishersController(PublisherService service,IMapper mapper) : base(service,mapper) {}
         public IActionResult Index()
