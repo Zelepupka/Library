@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using Library.BLL.DTO;
 using Library.BLL.Filters;
@@ -11,11 +12,21 @@ namespace Library.Web.Controllers
 {
     public class BooksController : CrudController<BookViewModel,BookDTO,Book,BookFilterDto,Guid>
     {
-        public BooksController(BookService service, IMapper mapper) : base(service, mapper) { }
-
-        public IActionResult Index()
+        public BooksController(PublisherService pubService, BookService service, IMapper mapper) : base(service, mapper)
         {
+            _publisherService = pubService;
+        }
+        private PublisherService _publisherService { get; set; }
+        public async Task<IActionResult> Index()
+        {
+            ViewBag.Publishers = await _publisherService.SearchFor(null);
             return View();
+        }
+
+        public override async Task<IActionResult> Add()
+        {
+            ViewBag.Publishers = await _publisherService.SearchFor(null);
+            return PartialView("Partials/Edit",new BookViewModel());
         }
     }
 }

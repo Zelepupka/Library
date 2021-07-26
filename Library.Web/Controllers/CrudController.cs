@@ -60,9 +60,8 @@ namespace Library.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LoadData(DataTableApplicationAjaxPostViewModel tableInfo)
+        public async Task<IActionResult> LoadData(DataTableBookAjaxPostViewModel tableInfo)
         {
-
             var filter = _mapper.Map<TFilter>(tableInfo);
 
             var genreData = await _service.SearchFor(filter);

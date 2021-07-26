@@ -59,6 +59,10 @@ namespace Library.BLL.Services
             return query;
         }
 
+        protected virtual IQueryable<TEntity> GetInclude(IQueryable<TEntity> query)
+        {
+            return query;
+        }
         public async Task<QueryDTO<TDto>> SearchFor(TFilter filters)
         {
             var result = new QueryDTO<TDto>();
@@ -75,6 +79,7 @@ namespace Library.BLL.Services
             }
 
             query = GetFiltered(query,filters);
+            query = GetInclude(query);
 
             result.Count = query.Count();
 

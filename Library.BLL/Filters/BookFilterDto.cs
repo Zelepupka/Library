@@ -1,9 +1,13 @@
-﻿using AFS.Web.Models.DataTable;
+﻿using System;
+using AFS.Web.Models.DataTable;
 
 namespace Library.BLL.Filters
 {
     public class BookFilterDto : BaseFilterDto
     {
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public Guid PublisherId { get; set; }
         public DataTableSearchViewModel Search { get; set; }
     }
 }

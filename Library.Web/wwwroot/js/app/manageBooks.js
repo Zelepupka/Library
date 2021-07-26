@@ -14,14 +14,18 @@
         },
         {
             render: function (data, full, row) { return "<a  class='btn btn-danger' onclick=ajaxBookDeletePost('" + row.id + "'); >Delete</a>"; }
-        },
-       
+        }
     ],
 
     dataSource: {
         url: '/Books/LoadData',
         type: 'POST',
-        datatype: 'json'
+        datatype: 'json',
+        data(d) {
+            d.startDate = $('#StartDate').val();
+            d.endDate = $('#EndDate').val();
+            d.publisherId = $('#publisherList').val();
+        }
     }
 }
 

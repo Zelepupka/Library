@@ -13,7 +13,10 @@
         <input type="hidden" name="@Model.Id" />
         <br/>
         <select name="PublisherId">
-
+            @foreach (var publisher in ViewBag.Publishers.Items)
+            {
+                <option value="@publisher.Id">@publisher.Name</option>
+            }
         </select>
     </form>
 </div>

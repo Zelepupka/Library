@@ -3,12 +3,13 @@ using System.Linq;
 using AutoMapper;
 using Library.BLL.DTO;
 using Library.BLL.Filters;
+using Library.BLL.Interfaces;
 using Library.Domain.Entities;
 using Library.Domain.Interfaces;
 
 namespace Library.BLL.Services
 {
-    public class PublisherService : BaseService<PublisherDTO,Publisher,PublisherFilterDto,Guid>
+    public class PublisherService : BaseService<PublisherDTO,Publisher,PublisherFilterDto,Guid>,IPublisherService
     {
         public PublisherService(IUnitOfWork uow, IMapper mapper) : base(uow, mapper){ }
 

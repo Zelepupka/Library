@@ -1,0 +1,20 @@
+﻿<label>Start Date: </label>
+<br/>
+<input type="date" value="@DateTime.Now"  id="StartDate"/>
+<br/>
+<label>End Date:</label>
+<br/>
+<input type="date" value="@DateTime.Now" id="EndDate"/>
+<br/>
+<label>Publisher:</label>
+<br/>
+<select id="publisherList">
+    <option value="@null">Don't filter</option>
+    @foreach (var publisher in ViewBag.Publishers.Items)
+    {
+        <option value="@publisher.Id">@publisher.Name</option>
+    }
+</select>
+<br/>
+<button id="filter">Filter</button>
+<button id="clearFilter">Clear Filter</button>
