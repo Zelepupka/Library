@@ -4,6 +4,6 @@ namespace Library.BLL.Filters
 {
     public class GenreFilterDto : BaseFilterDto
     {
-        public DataTableSearchViewModel Search{ get; set; }
+       
     }
 }

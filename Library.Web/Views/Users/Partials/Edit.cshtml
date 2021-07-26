@@ -1,0 +1,28 @@
+﻿@model Library.Web.ViewModels.EntityViewModels.UserViewModel
+
+<div id="formBody" class="modal-body">
+    <form id="userEdit">
+        <label>Username: </label>
+        <input type="text" value="@Model.Username" name="Username" />
+        <br/>
+        <label>Email: </label>
+        <input type="text" value="@Model.Email" name="Email"/>
+
+        <div>
+            @foreach (var role in ViewBag.Roles)
+            {
+                <div class="form-check m-1">
+                    <input type="checkbox" class="form-check-input"/>
+                    <label class="form-check-label" value="@role.Id">
+                        @role.Name
+                    </label>
+                </div>
+            }
+        </div>
+        <input type="hidden" name="Id" value="@Model.Id" />
+    </form>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="ajaxUserEditPost()">Save</button>
+</div>

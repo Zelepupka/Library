@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using AFS.Web.Models.DataTable;
 using AutoMapper;
 using Library.BLL.Filters;
+using Library.BLL.Interfaces;
 using Library.BLL.Services;
 using Library.Domain.AbstractClasses;
 using Library.Web.Models;
 
 namespace Library.Web.Controllers
 {
-    public abstract class CrudController<TViewModel, TDto, TEntity, TFilter, TKey> : Controller 
-        where TDto : class
-        where TEntity : BaseEntity<TKey>
+    public abstract class CrudController<TViewModel, TDto, TEntity, TFilter, TKey,TAjaxPostViewModel> : Controller 
+        where TDto : class, IBaseDto<TKey>
+        where TEntity : class, IBaseEntity<TKey>
         where TFilter : BaseFilterDto
         where TKey : IEquatable<TKey>
         where TViewModel : new()
@@ -60,17 +61,17 @@ namespace Library.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LoadData(DataTableBookAjaxPostViewModel tableInfo)
+        public virtual async Task<IActionResult> LoadData(TAjaxPostViewModel tableInfo)
         {
             var filter = _mapper.Map<TFilter>(tableInfo);
 
-            var genreData = await _service.SearchFor(filter);
+            var queryData = await _service.SearchFor(filter);
 
-            int recordsTotal = genreData.Count;
+            int recordsTotal = queryData.Count;
 
-            var data = genreData.Items;
+            var data = queryData.Items;
 
-            return Json(new { draw = tableInfo.Draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data.ToList() });
+            return Json(new { draw = filter.Draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data.ToList() });
         }
 
     }

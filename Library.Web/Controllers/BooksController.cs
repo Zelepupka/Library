@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AFS.Web.Models.DataTable;
 using AutoMapper;
 using Library.BLL.DTO;
 using Library.BLL.Filters;
@@ -10,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Web.Controllers
 {
-    public class BooksController : CrudController<BookViewModel,BookDTO,Book,BookFilterDto,Guid>
+    public class BooksController : CrudController<BookViewModel,BookDTO,Book,BookFilterDto,Guid,DataTableBookAjaxPostViewModel>
     {
         public BooksController(PublisherService pubService, BookService service, IMapper mapper) : base(service, mapper)
         {

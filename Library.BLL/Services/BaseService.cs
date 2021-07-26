@@ -26,13 +26,13 @@ namespace Library.BLL.Services
     }
 
     public abstract class BaseService<TDto, TEntity, TFilter, TKey> : IBaseService<TDto, TEntity, TFilter,TKey>
-        where TDto : class
-        where TEntity : BaseEntity<TKey>
+        where TDto : class, IBaseDto<TKey>
+        where TEntity : class, IBaseEntity<TKey>
         where TFilter : BaseFilterDto
         where TKey : IEquatable<TKey>
     {
-        private IUnitOfWork _uow;
-        private IMapper _mapper;
+        protected IUnitOfWork _uow;
+        protected IMapper _mapper;
 
         protected BaseService(IUnitOfWork uow, IMapper mapper)
         {
@@ -63,7 +63,7 @@ namespace Library.BLL.Services
         {
             return query;
         }
-        public async Task<QueryDTO<TDto>> SearchFor(TFilter filters)
+        public virtual async Task<QueryDTO<TDto>> SearchFor(TFilter filters)
         {
             var result = new QueryDTO<TDto>();
 
@@ -73,7 +73,7 @@ namespace Library.BLL.Services
             {
                 result.Count = query.Count();
                 
-                result.Items = _mapper.Map<IEnumerable<TDto>>(query.ToList());
+                result.Items = _mapper.Map<ICollection<TDto>>(query.ToList());
 
                 return result;
             }
@@ -91,7 +91,7 @@ namespace Library.BLL.Services
             if (filters.Length >= 0)
                 query = query.Take(filters.Length);
 
-            result.Items = _mapper.Map<IEnumerable<TDto>>(query.ToList());
+            result.Items = _mapper.Map<ICollection<TDto>>(query.ToList());
 
             return result;
         }
@@ -115,12 +115,14 @@ namespace Library.BLL.Services
             }
         }
 
-        public async Task<TDto> UpdateAsync(TDto dto)
+        public virtual async Task<TDto> UpdateAsync(TDto dto)
         {
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
 
-            var entity = _mapper.Map<TEntity>(dto);
+            var entity = await _uow.GetRepository<TEntity>().GetAsync(x => x.Id.Equals(dto.Id));
+
+            _mapper.Map(dto, entity);
 
             entity = await _uow.GetRepository<TEntity>().UpdateAsync(entity);
 

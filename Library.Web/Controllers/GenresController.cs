@@ -17,7 +17,7 @@ using Library.Web.ViewModels;
 
 namespace Library.Web.Controllers
 {
-    public class GenresController : CrudController<GenreViewModel,GenreDTO,Genre,GenreFilterDto,Guid>
+    public class GenresController : CrudController<GenreViewModel,GenreDTO,Genre,GenreFilterDto,Guid,DataTableBookAjaxPostViewModel>
     {
         public GenresController(GenreService genreService,IMapper mapper)
             : base(genreService, mapper) { }

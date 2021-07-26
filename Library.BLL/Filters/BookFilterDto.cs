@@ -8,6 +8,6 @@ namespace Library.BLL.Filters
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public Guid PublisherId { get; set; }
-        public DataTableSearchViewModel Search { get; set; }
+
     }
 }

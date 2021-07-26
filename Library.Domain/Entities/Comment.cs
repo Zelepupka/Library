@@ -3,8 +3,9 @@ using Library.Domain.AbstractClasses;
 
 namespace Library.Domain.Entities
 {
-    public class Comment : BaseEntity<Guid>
+    public class Comment : IBaseEntity<Guid>
     {
+        public Guid Id { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }
         public virtual Book Book { get; set; }

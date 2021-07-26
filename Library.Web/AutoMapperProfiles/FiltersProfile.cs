@@ -20,6 +20,9 @@ namespace Library.Web.AutoMapperProfiles
 
             CreateMap<DataTableBookAjaxPostViewModel, BookFilterDto>();
             CreateMap<BookFilterDto, DataTableBookAjaxPostViewModel>();
+
+            CreateMap<DataTableUserPostViewModel, UserFilterDto>();
+            CreateMap<UserFilterDto, DataTableUserPostViewModel>();
         }
     }
 }
