@@ -27,7 +27,6 @@ namespace Library.Web.Controllers
             _roleManager = roleManager;
             _userService = userService;
             _mapper = mapper;
-   
         }
       
         public async Task<IActionResult> Index()

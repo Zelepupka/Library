@@ -72,7 +72,9 @@ namespace Library.BLL.Services
             if (filters == null)
             {
                 result.Count = query.Count();
-                
+
+                query = GetInclude(query);
+
                 result.Items = _mapper.Map<ICollection<TDto>>(query.ToList());
 
                 return result;

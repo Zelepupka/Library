@@ -13,7 +13,7 @@ namespace Library.Web.AutoMapperProfiles
                 .ForMember(b => b.PublisherName, act => act.MapFrom(b => b.Publisher.Name));
 
             CreateMap<BookDTO,Book>();
-            CreateMap<BookDTO,BookViewModel>();
+            CreateMap<BookDTO,BookViewModel>().ForMember(b=>b.PublisherName,act=>act.MapFrom(b=>b.PublisherName));
             CreateMap<BookViewModel, BookDTO>();
         }
     }

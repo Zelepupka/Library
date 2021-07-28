@@ -77,3 +77,5 @@ function ajaxBookDeletePost(bookId) {
     }
     ajaxPost(options);
 }
+
+
