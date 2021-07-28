@@ -9,14 +9,13 @@
         <input type="text" value="@Model.Email" name="Email"/>
 
         <div>
-            @foreach (var role in ViewBag.Roles)
+            @for (var i = 0; i < Model.Roles.Count; i++)
             {
-                <div class="form-check m-1">
-                    <input type="checkbox" class="form-check-input"/>
-                    <label class="form-check-label" value="@role.Id">
-                        @role.Name
-                    </label>
-                </div>
+                @Html.HiddenFor(m =>m.Roles[i].Id);
+                @Html.HiddenFor(m =>m.Roles[i].Name);
+                @Html.CheckBoxFor(m =>m.Roles[i].IsSelected)
+                @Html.LabelFor(m =>m.Roles[i].Name, $"{Model.Roles[i].Name}");
+                <br/>
             }
         </div>
         <input type="hidden" name="Id" value="@Model.Id" />

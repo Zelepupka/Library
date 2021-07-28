@@ -8,9 +8,11 @@ using Library.BLL.Filters;
 using Library.BLL.Services;
 using Library.Domain.Entities;
 using Library.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Library.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class GenresController : CrudController<GenreViewModel,GenreDTO,Genre,GenreFilterDto,Guid,DataTableGenreAjaxPostViewModel>
     {
         public GenresController(GenreService genreService,IMapper mapper)

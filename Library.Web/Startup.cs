@@ -36,6 +36,7 @@ namespace Library.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.ConfigDependencies();
             services.AddAutoMapper(typeof(GenreProfile),typeof(AuthorProfile),typeof(BookProfile),typeof(PublisherProfile),typeof(CommentProfile),typeof(FiltersProfile));
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +62,7 @@ namespace Library.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

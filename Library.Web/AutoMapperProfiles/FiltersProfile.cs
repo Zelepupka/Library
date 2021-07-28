@@ -9,14 +9,14 @@ namespace Library.Web.AutoMapperProfiles
     {
         public FiltersProfile()
         {
-            CreateMap<DataTableBookAjaxPostViewModel, GenreFilterDto>();
-            CreateMap<GenreFilterDto, DataTableBookAjaxPostViewModel>();
+            CreateMap<DataTableGenreAjaxPostViewModel, GenreFilterDto>();
+            CreateMap<GenreFilterDto, DataTableGenreAjaxPostViewModel>();
 
-            CreateMap<DataTableBookAjaxPostViewModel, PublisherFilterDto>();
-            CreateMap<PublisherFilterDto, DataTableBookAjaxPostViewModel>();
+            CreateMap<DataTablePublisherViewModel, PublisherFilterDto>();
+            CreateMap<PublisherFilterDto, DataTablePublisherViewModel>();
 
-            CreateMap<DataTableBookAjaxPostViewModel, AuthorFilterDto>();
-            CreateMap<AuthorFilterDto, DataTableBookAjaxPostViewModel>();
+            CreateMap<DataTableAuthorAjaxPostViewModel, AuthorFilterDto>();
+            CreateMap<AuthorFilterDto, DataTableAuthorAjaxPostViewModel>();
 
             CreateMap<DataTableBookAjaxPostViewModel, BookFilterDto>();
             CreateMap<BookFilterDto, DataTableBookAjaxPostViewModel>();

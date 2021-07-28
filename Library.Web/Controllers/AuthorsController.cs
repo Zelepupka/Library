@@ -7,9 +7,11 @@ using Library.BLL.Filters;
 using Library.BLL.Services;
 using Library.Domain.Entities;
 using Library.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Library.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AuthorsController : CrudController<AuthorViewModel,AuthorDTO,Author,AuthorFilterDto,Guid,DataTableAuthorAjaxPostViewModel>
     {
         public AuthorsController(AuthorService service, IMapper mapper) : base(service, mapper) { }

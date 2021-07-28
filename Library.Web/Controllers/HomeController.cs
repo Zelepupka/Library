@@ -12,14 +12,16 @@ namespace Library.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-     
-        public HomeController(ILogger<HomeController> logger)
+        private readonly UserManager<User> _manager;
+        public HomeController( UserManager<User> manager, ILogger<HomeController> logger)
         {
+            _manager = manager;
             _logger = logger;
         }
 
         public async Task<IActionResult> Index()
         {
+          
             return View();
         }
 

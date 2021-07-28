@@ -10,9 +10,11 @@ using Library.BLL.Filters;
 using Library.BLL.Services;
 using Library.Domain.Entities;
 using Library.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Library.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PublishersController : CrudController<PublisherViewModel,PublisherDTO,Publisher,PublisherFilterDto,Guid,DataTablePublisherViewModel>
     {
         public PublishersController(PublisherService service,IMapper mapper) : base(service,mapper) {}
