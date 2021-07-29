@@ -1,0 +1,27 @@
+﻿<div align="center">
+    <span>Start date</span>
+    <br />
+    <input type="date" id="startDate" />
+    <br />
+    <span>End date</span>
+    <br />
+    <input type="date" id="endDate" value=" " />
+    <br />
+    <span>Search by name</span>
+    <br />
+    <input type="text" id="searchInput" value=" " />
+    <br />
+    <br />
+    <select id="publisherList">
+        <option value="@null">Don't filter</option>
+        @foreach (var publisher in ViewBag.Publishers.Items)
+        {
+            <option value="@publisher.Id">@publisher.Name</option>
+        }
+    </select>
+    <br />
+    <br />
+    <button class="btn btn-success" onclick="getAllBooks()">Filter</button>
+    <button class="btn btn-success" onclick="clearFilters()">Clear Filters</button>
+</div>
+<br/>

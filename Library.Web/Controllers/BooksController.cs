@@ -44,15 +44,27 @@ namespace Library.Web.Controllers
 
         public async Task<IActionResult> UserIndex()
         {
+            ViewBag.Publishers = await _publisherService.SearchFor(null);
             return View();
         }
-
-        public async Task<IActionResult> LoadBooks()
+        [HttpPost]
+        public async Task<IActionResult> LoadBooks(BookFilterDto filter)
         {
-            var booksDto = await _bookService.SearchFor(null);
+            var booksDto = await _bookService.SearchFor(filter);
             var booksViewModel = _mapper.Map<IEnumerable<BookViewModel>>(booksDto.Items);
             return Json(booksViewModel);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> BookPage(Guid id)
+        {
+            var book = _mapper.Map<BookViewModel>(await _bookService.GetAsyncWithInclude(id));
+            return View(book);
+        }
+
+        public async Task AddComment(CommentViewModel viewModel)
+        {
+
+        }
     }
 }

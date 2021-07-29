@@ -31,6 +31,16 @@
 
 InitTable(bookOptions);
 
+function clearFilters() {
+    $('#StartDate').val(null);
+    $('#EndDate').val(null);
+    $('#publisherList').val(null);
+    $('#book-table').DataTable().draw();
+}
+function filter() {
+    $('#book-table').DataTable().draw();
+}
+    
 function ajaxBookAddGet() {
     var options =
     {

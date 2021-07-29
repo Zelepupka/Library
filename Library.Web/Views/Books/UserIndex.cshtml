@@ -2,22 +2,31 @@
     ViewData["Title"] = "All Books";
     Layout = "_Layout";
 }
-
-
+@{
+    await Html.RenderPartialAsync("Partials/UserFilters");
+}
 
 <ul data-bind="foreach: model.books" class="book-list">
     <li class="single-book">
-        <img class="book-img" data-bind="attr:{src: '/images/' + id + '.png'}" width="104" height="179"/>
+        <a data-bind="attr:{href: 'BookPage/' + id}">
+            <img alt="Book Title" class="book-img" data-bind="attr:{src: '/images/' + id + '.png'}" width="104" height="179" />
+        </a>
         Book name: <span data-bind="text: name"></span>
-        <br/>
+        <br />
         Publisher name: <span data-bind="text: publisherName"></span>
+        <br />
+        Publication date: <span data-bind="text: moment(publicationDate).format('L');"></span>
     </li>
 </ul>
+
+
+
 
 
 @section Scripts
 {
     <script src="~/js/Knockout.js"></script>
     <script src="~/js/app/viewBooks.js"></script>
+    <script src="~/js/Moment.js"></script>
 }
 

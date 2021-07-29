@@ -31,19 +31,4 @@
     <script src="~/js/app/manageBooks.js"></script>
     <script src="~/js/ajaxRequests.js"></script>
     <script src="~/js/Moment.js"></script>
-    <script>
-        $('#filter').on('click',
-            function(e) {
-                e.preventDefault();
-                $('#book-table').DataTable().draw();
-            });
-        $('#clearFilter').on('click',
-            function (e) {
-                e.preventDefault();
-                $('#StartDate').val(null); 
-                $('#EndDate').val(null);
-                $('#publisherList').val(null);
-                $('#book-table').DataTable().draw();
-            });
-    </script>
 }

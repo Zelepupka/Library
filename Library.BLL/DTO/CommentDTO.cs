@@ -1,5 +1,6 @@
 ﻿using System;
 using Library.BLL.Interfaces;
+using Library.Domain.Entities;
 
 namespace Library.BLL.DTO
 {
@@ -8,5 +9,6 @@ namespace Library.BLL.DTO
         public Guid Id { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }
+        public  User User { get; set; }
     }
 }

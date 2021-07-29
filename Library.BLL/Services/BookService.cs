@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Library.BLL.DTO;
 using Library.BLL.Filters;
@@ -16,11 +17,18 @@ namespace Library.BLL.Services
         public BookService(IUnitOfWork uow, IMapper mapper) : base(uow, mapper) { }
         protected override IQueryable<Book> GetFiltered(IQueryable<Book> query, BookFilterDto filter)
         {
-            if (!string.IsNullOrEmpty(filter.Search.Value))
+            if (filter.Search != null)
             {
-                query = query.Where(g => g.Name.ToLower().Contains(filter.Search.Value.ToLower()));
+                if (!String.IsNullOrEmpty(filter.Search.Value))
+                {
+                    query = query.Where(g => g.Name.ToLower().Contains(filter.Search.Value.ToLower()));
+                }
             }
 
+            if (!String.IsNullOrWhiteSpace(filter.Name))
+            {
+                query = query.Where(b=>b.Name.Contains(filter.Name));
+            }
             if (filter.StartDate != null && filter.EndDate!=null)
             {
                 query = query.Where(b => b.PublicationDate >= filter.StartDate).Where(b=>b.PublicationDate<=filter.EndDate);
@@ -35,8 +43,16 @@ namespace Library.BLL.Services
 
         protected override IQueryable<Book> GetInclude(IQueryable<Book> query)
         {
-            query = query.Include(b => b.Publisher);
+            query = query.Include(b => b.Publisher).Include(b=>b.Comments);
             return query;
         }
+
+        public async Task<BookDTO> GetAsyncWithInclude(Guid id)
+        {
+            var allBooks = await _uow.GetRepository<Book>().GetAllAsync();
+            var needBook = _mapper.Map<BookDTO>(await allBooks.Include(b => b.Publisher).FirstOrDefaultAsync(b => b.Id == id));
+            return needBook;
+        }
+       
     }
 }

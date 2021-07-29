@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Library.Domain.Entities
+@model Library.Web.ViewModels.BookViewModel
+@inject SignInManager<User> _signInManager
+
+
+<h1>@Model.Name</h1>
+<span>Publisher: @Model.PublisherName</span>
+<br />
+<span>Publication Date: @Model.PublicationDate.ToString("d")</span>
+
+
+@if (_signInManager.IsSignedIn(User))
+{
+    <h2>Comments:</h2>
+    <textarea id="comment-text" placeholder="Comment content"></textarea>
+    <br />
+    <button class="btn btn-success" onclick="addComent()">AddComment</button>
+}
+
+
+
+@section Scripts
+{
+    
+}

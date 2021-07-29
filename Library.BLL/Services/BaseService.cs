@@ -63,6 +63,10 @@ namespace Library.BLL.Services
         {
             return query;
         }
+        protected virtual TEntity GetInclude(TEntity entity)
+        {
+            return entity;
+        }
         public virtual async Task<QueryDTO<TDto>> SearchFor(TFilter filters)
         {
             var result = new QueryDTO<TDto>();
@@ -87,12 +91,12 @@ namespace Library.BLL.Services
 
             // TODO: order by
 
-            if (filters.Skip >= 0)
+            if (filters.Skip > 0)
                 query = query.Skip(filters.Start);
 
-            if (filters.Length >= 0)
+            if (filters.Length > 0)
                 query = query.Take(filters.Length);
-
+            var resultQuery = query.ToList();
             result.Items = _mapper.Map<ICollection<TDto>>(query.ToList());
 
             return result;
@@ -101,7 +105,6 @@ namespace Library.BLL.Services
         public async Task<TDto> GetAsync(Func<TEntity, bool> predicate)
         {
             var needItem = await _uow.GetRepository<TEntity>().GetAsync(predicate);
-
             return _mapper.Map<TDto>(needItem);
         }
 
@@ -121,10 +124,12 @@ namespace Library.BLL.Services
         {
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
-
             var entity = await _uow.GetRepository<TEntity>().GetAsync(x => x.Id.Equals(dto.Id));
 
-            _mapper.Map(dto, entity);
+            if (entity == null)
+            {
+                entity = _mapper.Map<TEntity>(dto);
+            }
 
             entity = await _uow.GetRepository<TEntity>().UpdateAsync(entity);
 
