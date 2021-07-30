@@ -12,6 +12,6 @@ namespace Library.BLL.DTO
         public DateTime PublicationDate { get; set; }
         public string PublisherName { get; set; }
         public Guid PublisherId { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
+
     }
 }

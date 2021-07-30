@@ -9,6 +9,7 @@ namespace Library.Domain.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public int AvgRating { get; set; }
         public DateTime PublicationDate { get; set; }
         public virtual Publisher Publisher { get; set; }
         public virtual Guid PublisherId { get; set; }
@@ -16,5 +17,6 @@ namespace Library.Domain.Entities
         public virtual ICollection<Genre> Genres { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }

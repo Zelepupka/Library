@@ -71,7 +71,7 @@ namespace Library.BLL.Services
         {
             var result = new QueryDTO<TDto>();
 
-            var query = await _uow.GetRepository<TEntity>().GetAllAsync();
+            var query = _uow.GetRepository<TEntity>().GetAll();
 
             if (filters == null)
             {

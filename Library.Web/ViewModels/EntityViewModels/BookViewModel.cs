@@ -13,6 +13,5 @@ namespace Library.Web.ViewModels
         public DateTime PublicationDate { get; set; }
         public Guid PublisherId { get; set; }
         public string PublisherName { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

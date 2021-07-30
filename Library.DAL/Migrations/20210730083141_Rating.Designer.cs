@@ -4,14 +4,16 @@ using Library.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210730083141_Rating")]
+    partial class Rating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,30 +163,6 @@ namespace Library.DAL.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("Library.Domain.Entities.Rating", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Ratings");
-                });
-
             modelBuilder.Entity("Library.Domain.Entities.User", b =>
                 {
                     b.Property<string>("Id")
@@ -279,14 +257,14 @@ namespace Library.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "56efdff1-2f86-48a5-a637-1ee90b42daec",
-                            ConcurrencyStamp = "32c58ab2-0bef-43b5-b8f5-dd27b9336d54",
+                            Id = "1133cc8c-f285-4aba-83ac-02c909daaaaa",
+                            ConcurrencyStamp = "e62e7888-3fa9-476a-bb1c-f0694277a100",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "7c9f5424-f05e-4b8a-b6fd-751c9f7f36f5",
-                            ConcurrencyStamp = "c799d41c-bc5d-43b9-9b0a-4929df3a587b",
+                            Id = "132dd54d-a9cb-4191-a765-f6f07d821f3b",
+                            ConcurrencyStamp = "75513337-e25d-4c36-b634-6fbe5ea87929",
                             Name = "User"
                         });
                 });
@@ -468,23 +446,6 @@ namespace Library.DAL.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Library.Domain.Entities.Rating", b =>
-                {
-                    b.HasOne("Library.Domain.Entities.Book", "Book")
-                        .WithMany("Ratings")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Library.Domain.Entities.User", "User")
-                        .WithMany("Ratings")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Book");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -539,8 +500,6 @@ namespace Library.DAL.Migrations
             modelBuilder.Entity("Library.Domain.Entities.Book", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("Library.Domain.Entities.Publisher", b =>
@@ -551,8 +510,6 @@ namespace Library.DAL.Migrations
             modelBuilder.Entity("Library.Domain.Entities.User", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }

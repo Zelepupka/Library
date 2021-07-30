@@ -4,23 +4,36 @@
 @inject SignInManager<User> _signInManager
 
 
+<input type="hidden" id="book-id" value="@Model.Id"/>
+
 <h1>@Model.Name</h1>
 <span>Publisher: @Model.PublisherName</span>
 <br />
 <span>Publication Date: @Model.PublicationDate.ToString("d")</span>
 
 
+
+<h2>Comments:</h2>
+<ul data-bind="foreach: model.comments">
+    <li>
+        <label data-bind="text: user.username"></label>
+        <br/>
+        <label data-bind="text: content"></label>
+    </li>
+</ul>
+
 @if (_signInManager.IsSignedIn(User))
 {
-    <h2>Comments:</h2>
     <textarea id="comment-text" placeholder="Comment content"></textarea>
-    <br />
-    <button class="btn btn-success" onclick="addComent()">AddComment</button>
+    <br/>
+    <button class="btn btn-success" onclick="addComment()">AddComment</button>
 }
 
 
 
 @section Scripts
 {
-    
+    <script src="~/js/Knockout.js"></script>
+    <script src="~/js/ajaxRequests.js"></script>
+    <script src="~/js/app/manageComments.js"></script>
 }

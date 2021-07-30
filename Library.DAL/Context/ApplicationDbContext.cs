@@ -14,6 +14,7 @@ namespace Library.DAL.Context
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,22 +30,31 @@ namespace Library.DAL.Context
                 .WithMany(s => s.Books)
                 .UsingEntity(j => j.ToTable("BookGenres"));
 
+            modelBuilder.Entity<Book>()
+                .HasMany(b => b.Comments)
+                .WithOne(c => c.Book)
+                .HasForeignKey(c => c.BookId);
+            modelBuilder.Entity<Book>()
+                .HasMany(b => b.Ratings)
+                .WithOne(c => c.Book)
+                .HasForeignKey(c => c.BookId);
+
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Books)
                 .WithMany(b => b.Users)
                 .UsingEntity(j => j.ToTable("Favorites"));
 
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Ratings)
+                .WithOne(c => c.User)
+                .HasForeignKey(c => c.UserId);
+
+
             modelBuilder.Entity<IdentityRole>()
                 .HasData(new IdentityRole("Admin"),
                          new IdentityRole("User"));
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Comments)
-                .WithOne(c => c.User)
-                .HasForeignKey(c => c.UserId);
-            modelBuilder.Entity<Book>()
-                .HasMany(b => b.Comments)
-                .WithOne(c => c.Book)
-                .HasForeignKey(c => c.BookId);
+          
+
         }
     }
 }

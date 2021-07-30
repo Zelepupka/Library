@@ -43,14 +43,13 @@ namespace Library.BLL.Services
 
         protected override IQueryable<Book> GetInclude(IQueryable<Book> query)
         {
-            query = query.Include(b => b.Publisher).Include(b=>b.Comments);
+            query = query.Include(b => b.Publisher);
             return query;
         }
 
-        public async Task<BookDTO> GetAsyncWithInclude(Guid id)
+        public async Task<BookDTO> GetBookAsync(Guid id)
         {
-            var allBooks = await _uow.GetRepository<Book>().GetAllAsync();
-            var needBook = _mapper.Map<BookDTO>(await allBooks.Include(b => b.Publisher).FirstOrDefaultAsync(b => b.Id == id));
+            var needBook = _mapper.Map<BookDTO>(await _uow.GetRepository<Book>().GetAll().Include(b => b.Publisher).FirstOrDefaultAsync(b => b.Id == id)); 
             return needBook;
         }
        

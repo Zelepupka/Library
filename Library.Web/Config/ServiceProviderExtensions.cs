@@ -23,6 +23,7 @@ namespace Library.Web.Config
             services.AddScoped<AuthorService>();
             services.AddScoped<BookService>();
             services.AddScoped<UserService>();
+            services.AddScoped<CommentService>();
         }
 
 

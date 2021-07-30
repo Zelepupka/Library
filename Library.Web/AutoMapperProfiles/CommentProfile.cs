@@ -11,8 +11,9 @@ namespace Library.Web.AutoMapperProfiles
         {
             CreateMap<Comment, CommentDTO>();
             CreateMap<CommentDTO, Comment>();
-            CreateMap<CommentDTO, CommentViewModel>();
+            CreateMap<CommentDTO, CommentViewModel>().ForMember(c=>c.User,c=>c.MapFrom(dto=>dto.User));
             CreateMap<CommentViewModel, CommentDTO>();
+
         }
     }
 }

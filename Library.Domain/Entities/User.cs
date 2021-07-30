@@ -7,8 +7,9 @@ namespace Library.Domain.Entities
 {
     public class User : IdentityUser, IBaseEntity<string>
     {
-        public ICollection<Comment> Comments;
-        public ICollection<Book> Books;
-    }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Book> Books { get; set; }
+        public ICollection<Rating> Ratings { get; set; }
 
+    }
 }

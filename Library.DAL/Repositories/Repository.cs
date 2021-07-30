@@ -22,7 +22,7 @@ namespace Library.DAL.Repositories
             _dbSet = db.Set<TEntity>();
         }
 
-        public async Task<IQueryable<TEntity>> GetAllAsync()
+        public IQueryable<TEntity> GetAll()
         {
             return _dbSet.AsQueryable().AsNoTracking();
         }

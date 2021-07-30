@@ -11,9 +11,12 @@ namespace Library.Web.AutoMapperProfiles
         public UserProfile()
         {
             CreateMap<User,UserDTO>();
+            CreateMap<User, CommentUserViewModel>();
             CreateMap<UserDTO,User>();
             CreateMap<UserDTO, UserViewModel>();
             CreateMap<UserViewModel, UserDTO>();
+            CreateMap<CommentUserViewModel,UserDTO>();
+            CreateMap<UserDTO, CommentUserViewModel>();
         }
     }
 }

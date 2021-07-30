@@ -1,5 +1,6 @@
 ﻿using System;
 using Library.Domain.Entities;
+using Library.Web.ViewModels.EntityViewModels;
 
 namespace Library.Web.ViewModels
 {
@@ -8,7 +9,7 @@ namespace Library.Web.ViewModels
         public Guid Id { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }
-
-        public User User { get; set; }
+        public CommentUserViewModel User { get; set; }
+        public Guid BookId { get; set; }
     }
 }
