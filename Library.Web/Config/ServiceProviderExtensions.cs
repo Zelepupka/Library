@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Hangfire;
 using Library.BLL.Interfaces;
 using Library.BLL.Services;
 using Library.DAL.Repositories;
@@ -24,8 +25,8 @@ namespace Library.Web.Config
             services.AddScoped<BookService>();
             services.AddScoped<UserService>();
             services.AddScoped<CommentService>();
+            services.AddScoped<RatingsService>();
         }
-
 
     }
 }

@@ -6,7 +6,7 @@
 function addComment() {
     $.ajax({
         type: 'POST',
-        url: '/Comments/AddComment',
+        url: '/Comments/Add',
         dataType: 'json',
         data: {
             content: $('#comment-text').val(),

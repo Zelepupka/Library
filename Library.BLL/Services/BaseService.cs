@@ -124,12 +124,15 @@ namespace Library.BLL.Services
         {
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
-            var entity = await _uow.GetRepository<TEntity>().GetAsync(x => x.Id.Equals(dto.Id));
 
+            var entity = await _uow.GetRepository<TEntity>().GetAsync(x => x.Id.Equals(dto.Id));
+            
             if (entity == null)
             {
                 entity = _mapper.Map<TEntity>(dto);
             }
+
+            _mapper.Map(dto, entity);
 
             entity = await _uow.GetRepository<TEntity>().UpdateAsync(entity);
 

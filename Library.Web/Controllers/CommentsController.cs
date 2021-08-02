@@ -31,7 +31,7 @@ namespace Library.Web.Controllers
         }
 
         [HttpPost]
-        public async Task AddComment(CommentViewModel viewModel)
+        public async Task Add(CommentViewModel viewModel)
         {
             ClaimsPrincipal currentUser = User;
             var user = await _userManager.GetUserAsync(currentUser);

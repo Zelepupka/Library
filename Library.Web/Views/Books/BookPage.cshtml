@@ -4,15 +4,18 @@
 @inject SignInManager<User> _signInManager
 
 
-<input type="hidden" id="book-id" value="@Model.Id"/>
+<input type="hidden" id="book-id" value="@Model.Id" />
 
 <h1>@Model.Name</h1>
 <span>Publisher: @Model.PublisherName</span>
 <br />
 <span>Publication Date: @Model.PublicationDate.ToString("d")</span>
-
-
-<input onclick="" type="range" min="1" max="10"/>
+<br />
+<span>Average rating: @Model.AvgRating</span>
+<br/>
+<input class="form-control-range" step="1" id="rating-range" type="range" min="1" max="10" />
+<button onclick="addRating()">Rating</button>
+<br/>
 
 
 
@@ -21,7 +24,7 @@
 <ul data-bind="foreach: model.comments">
     <li>
         <label data-bind="text: user.username"></label>
-        <br/>
+        <br />
         <label data-bind="text: content"></label>
     </li>
 </ul>
@@ -29,7 +32,7 @@
 @if (_signInManager.IsSignedIn(User))
 {
     <textarea id="comment-text" placeholder="Comment content"></textarea>
-    <br/>
+    <br />
     <button class="btn btn-success" onclick="addComment()">AddComment</button>
 }
 
@@ -40,4 +43,5 @@
     <script src="~/js/Knockout.js"></script>
     <script src="~/js/ajaxRequests.js"></script>
     <script src="~/js/app/manageComments.js"></script>
+    <script src="~/js/app/manageRatings.js"></script>
 }

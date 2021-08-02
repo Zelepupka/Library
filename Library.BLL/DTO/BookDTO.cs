@@ -9,6 +9,7 @@ namespace Library.BLL.DTO
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public int AvgRating { get; set; }
         public DateTime PublicationDate { get; set; }
         public string PublisherName { get; set; }
         public Guid PublisherId { get; set; }

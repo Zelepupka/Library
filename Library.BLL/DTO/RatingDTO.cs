@@ -8,6 +8,7 @@ namespace Library.BLL.DTO
     {
         public Guid Id { get; set; }
         public int Value { get; set; }
-        public virtual Guid BookId { get; set; }
+        public string UserId { get; set; } 
+        public Guid BookId { get; set; }
     }
 }

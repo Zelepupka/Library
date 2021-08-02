@@ -35,7 +35,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Library.BLL\Library.BLL.csproj" />
-    <ProjectReference Include="..\Library.DAL\Library.DAL.csproj" />
   </ItemGroup>
 
 </Project>
