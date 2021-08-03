@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.BLL", "Library.BLL\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Web", "Library.Web\Library.Web.csproj", "{E7685D4B-416F-410F-99D3-946BCB7910EB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{C97C6490-5032-4626-B863-B407969AF282}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{AE428F8E-BAF3-4355-8A9D-CE3DA339099D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{E7685D4B-416F-410F-99D3-946BCB7910EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7685D4B-416F-410F-99D3-946BCB7910EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7685D4B-416F-410F-99D3-946BCB7910EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C97C6490-5032-4626-B863-B407969AF282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C97C6490-5032-4626-B863-B407969AF282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C97C6490-5032-4626-B863-B407969AF282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C97C6490-5032-4626-B863-B407969AF282}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE428F8E-BAF3-4355-8A9D-CE3DA339099D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE428F8E-BAF3-4355-8A9D-CE3DA339099D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE428F8E-BAF3-4355-8A9D-CE3DA339099D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE428F8E-BAF3-4355-8A9D-CE3DA339099D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

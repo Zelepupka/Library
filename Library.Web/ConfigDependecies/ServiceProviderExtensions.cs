@@ -1,13 +1,9 @@
-﻿using AutoMapper;
-using Hangfire;
-using Library.BLL.Interfaces;
-using Library.BLL.Services;
+﻿using Library.BLL.Services;
 using Library.DAL.Repositories;
-using Library.Domain.Entities;
 using Library.Domain.Interfaces;
-using Library.Web.AutoMapperProfiles;
 using Microsoft.Extensions.DependencyInjection;
-namespace Library.Web.Config
+
+namespace Library.Web.ConfigDependecies
 {
     public static class ServiceProviderExtensions
     {

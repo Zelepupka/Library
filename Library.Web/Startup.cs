@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,14 +6,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Library.DAL.Context;
 using Library.Domain.Entities;
-using Library.Web.Config;
+using Library.Web.ConfigDependecies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Library.Web.AutoMapperProfiles;
 using Hangfire;
 using Hangfire.SqlServer;
+using IdentityServer4;
+using IdentityServer4.Models;
+using IdentityServer4.Test;
 using Library.BLL.Services;
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 
 
 namespace Library.Web
@@ -58,8 +62,30 @@ namespace Library.Web
             //        UseRecommendedIsolationLevel = true,
             //        DisableGlobalLocks = true
             //    }));
+          
             services.AddHangfireServer();
-            
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()        
+                .AddInMemoryApiScopes(Config.ApiScopes)
+                .AddInMemoryClients(Config.Clients);
+            services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
+            {
+                options.Authority = "https://localhost:5001";
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false
+                };
+               
+            });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiScope", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope", "api1");
+                });
+            });
+
             RecurringJob.AddOrUpdate<RatingsService>("Compute-Ratings",x => x.ComputeRating(), Cron.Hourly);
 
         }
@@ -83,6 +109,7 @@ namespace Library.Web
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseHangfireDashboard();
+            app.UseIdentityServer();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
