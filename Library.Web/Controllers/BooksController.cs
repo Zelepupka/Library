@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AFS.Web.Models.DataTable;
@@ -50,6 +51,7 @@ namespace Library.Web.Controllers
             ViewBag.Publishers = await _publisherService.SearchFor(null);
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> LoadBooks(BookFilterDto filter)
         {
@@ -63,6 +65,13 @@ namespace Library.Web.Controllers
         {
             var book = _mapper.Map<BookViewModel>(await _bookService.GetBookAsync(id));
             return View(book);
+        }
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetBooks()
+        {
+            var data = await _bookService.SearchFor(null);
+            return Json(data.Items.ToList());
         }
     }
 

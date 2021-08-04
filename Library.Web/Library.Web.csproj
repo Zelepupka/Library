@@ -41,7 +41,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Api\Api.csproj" />
     <ProjectReference Include="..\Library.BLL\Library.BLL.csproj" />
   </ItemGroup>
 

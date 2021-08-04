@@ -38,8 +38,11 @@ namespace Library.Web
         {
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
             services.ConfigDependencies();
             services.AddAutoMapper(typeof(GenreProfile),typeof(AuthorProfile),typeof(BookProfile),typeof(PublisherProfile),typeof(CommentProfile),typeof(FiltersProfile),typeof(RatingProfile));
             services.AddRazorPages();
@@ -64,10 +67,7 @@ namespace Library.Web
             //    }));
           
             services.AddHangfireServer();
-            services.AddIdentityServer()
-                .AddDeveloperSigningCredential()        
-                .AddInMemoryApiScopes(Config.ApiScopes)
-                .AddInMemoryClients(Config.Clients);
+
             services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
             {
                 options.Authority = "https://localhost:5001";
@@ -77,6 +77,12 @@ namespace Library.Web
                 };
                
             });
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()        //This is for dev only scenarios when you don’t have a certificate to use.
+                .AddInMemoryApiScopes(Config.ApiScopes)
+                .AddInMemoryClients(Config.Clients)
+                .AddAspNetIdentity<User>();
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("ApiScope", policy =>
@@ -85,6 +91,7 @@ namespace Library.Web
                     policy.RequireClaim("scope", "api1");
                 });
             });
+
 
             RecurringJob.AddOrUpdate<RatingsService>("Compute-Ratings",x => x.ComputeRating(), Cron.Hourly);
 

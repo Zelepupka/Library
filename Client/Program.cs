@@ -25,9 +25,9 @@ namespace Client
                 ClientSecret = "secret",
                 Scope = "api1"
             });
-
+                
             if (tokenResponse.IsError)
-            {
+            {   
                 Console.WriteLine(tokenResponse.Error);
                 Console.ReadKey();
                 return;
@@ -38,7 +38,7 @@ namespace Client
             var apiClient = new HttpClient();
             apiClient.SetBearerToken(tokenResponse.AccessToken);
 
-            var response = await apiClient.GetAsync("https://localhost:6001/identity");
+            var response = await apiClient.GetAsync("https://localhost:5001/api/getbooks");
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine(response.StatusCode);

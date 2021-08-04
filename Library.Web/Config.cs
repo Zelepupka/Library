@@ -3,7 +3,7 @@ using IdentityServer4.Models;
 
 namespace Library.Web
 {
-    public static class Config
+    public class Config
     {
         public static IEnumerable<ApiScope> ApiScopes =>
             new List<ApiScope>
