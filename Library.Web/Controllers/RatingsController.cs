@@ -9,6 +9,8 @@ using Library.BLL.Filters;
 using Library.BLL.Services;
 using Library.Domain.Entities;
 using Library.Web.ViewModels;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,12 +19,12 @@ namespace Library.Web.Controllers
 {
     public class RatingsController : Controller
     {
-        private readonly RatingsService _ratingsService;
+        private readonly RatingService _ratingsService;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
   
 
-        public RatingsController(UserManager<User> userManager,IMapper mapper,RatingsService ratingsService)
+        public RatingsController(UserManager<User> userManager,IMapper mapper,RatingService ratingsService)
         {
             _userManager = userManager;
             _mapper = mapper;

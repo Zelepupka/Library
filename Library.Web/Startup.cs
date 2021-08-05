@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,9 +14,11 @@ using Library.Web.AutoMapperProfiles;
 using Hangfire;
 using Hangfire.SqlServer;
 using IdentityServer4;
+using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
 using Library.BLL.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 
@@ -75,12 +78,12 @@ namespace Library.Web
                 {
                     ValidateAudience = false
                 };
-               
             });
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()        //This is for dev only scenarios when you don’t have a certificate to use.
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
+                .AddInMemoryApiResources(Config.ApiResources)
                 .AddAspNetIdentity<User>();
 
             services.AddAuthorization(options =>
@@ -90,10 +93,15 @@ namespace Library.Web
                     policy.RequireAuthenticatedUser();
                     policy.RequireClaim("scope", "api1");
                 });
+                options.AddPolicy("UserScope", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope", "userApi");
+                });
             });
 
 
-            RecurringJob.AddOrUpdate<RatingsService>("Compute-Ratings",x => x.ComputeRating(), Cron.Hourly);
+            RecurringJob.AddOrUpdate<RatingService>("Compute-Ratings",x => x.ComputeRating(), Cron.Hourly);
 
         }
 

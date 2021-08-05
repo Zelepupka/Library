@@ -11,11 +11,11 @@ using Library.Domain.Interfaces;
 
 namespace Library.BLL.Services
 {
-    public class RatingsService : BaseService<RatingDTO,Rating,RatingFilterDto,Guid>
+    public class RatingService : BaseService<RatingDTO,Rating,RatingFilterDto,Guid>
     {
         private readonly BookService _bookService;
 
-        public RatingsService(BookService bookService, IUnitOfWork uow, IMapper mapper) : base(uow, mapper)
+        public RatingService(BookService bookService, IUnitOfWork uow, IMapper mapper) : base(uow, mapper)
         { 
             _bookService = bookService;
         }

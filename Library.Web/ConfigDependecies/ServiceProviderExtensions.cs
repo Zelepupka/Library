@@ -21,7 +21,7 @@ namespace Library.Web.ConfigDependecies
             services.AddScoped<BookService>();
             services.AddScoped<UserService>();
             services.AddScoped<CommentService>();
-            services.AddScoped<RatingsService>();
+            services.AddScoped<RatingService>();
         }
 
     }
