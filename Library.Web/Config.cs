@@ -8,7 +8,7 @@ namespace Library.Web
         public static IEnumerable<ApiScope> ApiScopes =>
             new List<ApiScope>
             {
-                new ApiScope("bookApi", "Book API"),
+                new ApiScope("api1", "Book API"),
                 new ApiScope("userApi","User API")
             };
 

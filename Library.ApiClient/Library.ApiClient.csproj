@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIcon></PackageIcon>
+    <PackageIconUrl />
+    <Authors>Tsesenko Viktor</Authors>
+    <Company>Tsesenko Viktor</Company>
+    <Product>LibraryApiClient</Product>
+    <Description>My trainee NuGet package</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IdentityModel" Version="5.1.0" />
+  </ItemGroup>
+
+</Project>
