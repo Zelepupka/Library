@@ -36,7 +36,7 @@ namespace Client
             client.SetBearerToken(tokenResponse.AccessToken);
             string bookId = "685cfd67-2c2a-428a-b07c-08d94cf24d7c";
             HttpContent http = new StringContent(bookId);
-            var response = await client.PostAsync("https://localhost:5001/api/SetRating?bookId=685cfd67-2c2a-428a-b07c-08d94cf24d7c&value=10", http);
+            var response = await client.PostAsync("https://localhost:5001/api/SetRating?bookId=685cfd67-2c2a-428a-b07c-08d94cf24d7c&value=3", http);
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine(response.StatusCode);

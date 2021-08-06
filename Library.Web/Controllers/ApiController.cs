@@ -38,7 +38,7 @@ namespace Library.Web.Controllers
         public async Task<IActionResult> SetRating(int value,Guid bookId)
         {
 
-            var userId =  this.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+            var userId =  this.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier);
             var ratingDto = new RatingDTO
             {
                 BookId = bookId,
