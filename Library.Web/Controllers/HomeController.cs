@@ -1,10 +1,15 @@
-﻿using Library.Web.Models;
+﻿using System;
+using Library.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 using Library.Domain.Entities;
+using Library.Web.Interfaces;
+using Library.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using RabbitMQ.Client;
 
 
 namespace Library.Web.Controllers
@@ -12,16 +17,24 @@ namespace Library.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly UserManager<User> _manager;
-        public HomeController( UserManager<User> manager, ILogger<HomeController> logger)
+
+        private readonly IRabbitManager _rabbitManager;
+            
+        public HomeController(IRabbitManager rabbitManager,ILogger<HomeController> logger)
         {
-            _manager = manager;
+            _rabbitManager = rabbitManager;
             _logger = logger;
         }
 
         public async Task<IActionResult> Index()
         {
-          
+            var num = new System.Random().Next(9000);  
+            _rabbitManager.Publish(new
+            {
+                field1 = $"Hello-{num}",
+                field2 = $"rabbit-{num}"
+            }, "MyExchange", "topic", "#routingkey");
+
             return View();
         }
 

@@ -1,7 +1,14 @@
-﻿using Library.BLL.Services;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper.Configuration;
+using Library.BLL.Services;
 using Library.DAL.Repositories;
 using Library.Domain.Interfaces;
+using Library.Web.Interfaces;
+using Library.Web.RabbitMq;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.ObjectPool;
+using RabbitMQ.Client;
 
 namespace Library.Web.ConfigDependecies
 {
@@ -22,7 +29,10 @@ namespace Library.Web.ConfigDependecies
             services.AddScoped<UserService>();
             services.AddScoped<CommentService>();
             services.AddScoped<RatingService>();
+            services.AddScoped<IRabbitManager, RabbitManager>();
         }
 
+      
     }
 }
+

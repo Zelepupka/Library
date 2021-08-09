@@ -7,10 +7,10 @@ namespace Library.ApiClient
 {
     public static class LibraryClient
     {
-        public static async Task<HttpClient> GetAppClientAsync()
+        public static async Task<HttpClient> GetAppClientAsync(string clientId, string clientSecret, string scope, string url)
         {
             var client = new HttpClient();
-            var disco = await client.GetDiscoveryDocumentAsync("https://localhost:5001");
+            var disco = await client.GetDiscoveryDocumentAsync(url);
             if (disco.IsError)
             {
                 throw new Exception(disco.Error);
@@ -19,9 +19,9 @@ namespace Library.ApiClient
             var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
             {
                 Address = disco.TokenEndpoint,
-                ClientId = "client",
-                ClientSecret = "secret",
-                Scope = "api1"
+                ClientId = clientId,
+                ClientSecret = clientSecret,
+                Scope = scope
             });
 
             if (tokenResponse.IsError)
@@ -33,11 +33,11 @@ namespace Library.ApiClient
             return client;
         }
 
-        public static async Task<HttpClient> GetUserClientAsync()
+        public static async Task<HttpClient> GetUserClientAsync(string clientId, string clientSecret, string username, string password, string url)
         {
 
             var client = new HttpClient();
-            var disco = await client.GetDiscoveryDocumentAsync("https://localhost:5001");
+            var disco = await client.GetDiscoveryDocumentAsync(url);
             if (disco.IsError)
             {
                 throw new Exception(disco.Error);
@@ -46,10 +46,10 @@ namespace Library.ApiClient
             var tokenResponse = await client.RequestPasswordTokenAsync(new PasswordTokenRequest()
             {
                 Address = disco.TokenEndpoint,
-                ClientId = "user",
-                ClientSecret = "userSecret",
-                UserName = "ConsoleUser@mail.ru",
-                Password = "Console1!"
+                ClientId = clientId,
+                ClientSecret = clientSecret,
+                UserName = username,
+                Password = password
             });
 
             if (tokenResponse.IsError)

@@ -7,16 +7,16 @@ namespace Library.ApiClient
 {
     public static class LibraryApi
     {
-        public static async Task<HttpResponseMessage> GetAllBooks(HttpClient client)
+        public static async Task<HttpResponseMessage> GetAllBooks(HttpClient client,string url)
         {
-             var response = await client.GetAsync("https://localhost:5001/api/getbooks");
+             var response = await client.GetAsync(url);
              return response;
         }
 
-        public static async Task<HttpResponseMessage> SetRating(int value, string bookId,HttpClient client)
+        public static async Task<HttpResponseMessage> SetRating(int value, string bookId,HttpClient client,string url)
         {
             HttpContent http = new StringContent(bookId.ToString());
-            var response = await client.PostAsync($"https://localhost:5001/api/SetRating?bookId={bookId}&value={value}", http);
+            var response = await client.PostAsync($"{url}?bookId={bookId}&value={value}", http);
             return response;
         }
     }

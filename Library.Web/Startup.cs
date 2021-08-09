@@ -35,7 +35,6 @@ namespace Library.Web
 
         public IConfiguration Configuration { get; }
 
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -49,26 +48,13 @@ namespace Library.Web
             services.ConfigDependencies();
             services.AddAutoMapper(typeof(GenreProfile),typeof(AuthorProfile),typeof(BookProfile),typeof(PublisherProfile),typeof(CommentProfile),typeof(FiltersProfile),typeof(RatingProfile));
             services.AddRazorPages();
-
             services.AddHangfire(config =>
             {
                 config.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection"));
             });
+
             JobStorage.Current = new SqlServerStorage(Configuration.GetConnectionString("DefaultConnection"));
 
-            //services.AddHangfire(configuration => configuration
-            //    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-            //    .UseSimpleAssemblyNameTypeSerializer()
-            //    .UseRecommendedSerializerSettings()
-            //    .UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection"), new SqlServerStorageOptions
-            //    {
-            //        CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
-            //        SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
-            //        QueuePollInterval = TimeSpan.Zero,
-            //        UseRecommendedIsolationLevel = true,
-            //        DisableGlobalLocks = true
-            //    }));
-          
             services.AddHangfireServer();
 
             services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
@@ -79,8 +65,9 @@ namespace Library.Web
                     ValidateAudience = false
                 };
             });
+
             services.AddIdentityServer()
-                .AddDeveloperSigningCredential()        //This is for dev only scenarios when you don’t have a certificate to use.
+                .AddDeveloperSigningCredential()        
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
                 .AddInMemoryApiResources(Config.ApiResources)
@@ -99,7 +86,6 @@ namespace Library.Web
                     policy.RequireClaim("scope", "userApi");
                 });
             });
-
 
             RecurringJob.AddOrUpdate<RatingService>("Compute-Ratings",x => x.ComputeRating(), Cron.Hourly);
 
