@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Library.Domain.Entities
+@using System.Security.Claims
 @model Library.Web.ViewModels.BookViewModel
 @inject SignInManager<User> _signInManager
 
@@ -12,10 +13,10 @@
 <span>Publication Date: @Model.PublicationDate.ToString("d")</span>
 <br />
 <span>Average rating: @Model.AvgRating</span>
-<br/>
+<br />
 <input class="form-control-range" step="1" id="rating-range" type="range" min="1" max="10" />
 <button onclick="addRating()">Rating</button>
-<br/>
+<br />
 
 
 
@@ -33,9 +34,8 @@
 {
     <textarea id="comment-text" placeholder="Comment content"></textarea>
     <br />
-    <button class="btn btn-success" onclick="addComment()">AddComment</button>
+    <button id="add-comment-btn" class="btn btn-success" onclick="signalComment()">AddComment</button>
 }
-
 
 
 @section Scripts
@@ -44,4 +44,38 @@
     <script src="~/js/ajaxRequests.js"></script>
     <script src="~/js/app/manageComments.js"></script>
     <script src="~/js/app/manageRatings.js"></script>
+    <script src="~/js/Moment.js"></script>
+    <script>
+
+        var hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/Books/BookPage")
+            .build();
+
+        hubConnection.on('Send',
+            function(data) {
+                model.comments.push(data);
+            });
+
+        function signalComment() {
+            // addComment();
+            var comment = {
+                content: $('#comment-text').val(),
+                date: "@DateTime.Now",
+                bookId: "@Model.Id",
+                commentUserViewModel: {
+                    id: "@User.Claims.First().Value",
+                    userName: "@User.Identity.Name"
+                }
+            }
+
+            console.log(comment);
+
+            try {
+                hubConnection.invoke('SendComment', comment);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        hubConnection.start();
+    </script>
 }

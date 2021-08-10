@@ -18,6 +18,7 @@ using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
 using Library.BLL.Services;
+using Library.Web.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
@@ -87,6 +88,8 @@ namespace Library.Web
                 });
             });
 
+            services.AddSignalR();
+
             RecurringJob.AddOrUpdate<RatingService>("Compute-Ratings",x => x.ComputeRating(), Cron.Hourly);
 
         }
@@ -118,7 +121,7 @@ namespace Library.Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
                 endpoints.MapHangfireDashboard();
-
+                endpoints.MapHub<CommentHub>("/Books/BookPage");
             });
         }
     }
