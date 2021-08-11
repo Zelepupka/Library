@@ -7,9 +7,10 @@ namespace Library.Web.Hubs
 {
     public class CommentHub : Hub
     {
-        public async Task SendComment(CommentViewModel comment)
+     
+        public async Task SendComment(object comment)
         {
-            await this.Clients.All.SendAsync("Send",comment);   
+            await Clients.Others.SendAsync("SendComment",comment);
         }
 }
 }

@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/signalr.min.js"></script>
+    <script>
+        var hubConnection = new signalR.HubConnectionBuilder()
+            .configureLogging(signalR.LogLevel.Debug)
+            .withUrl("/hub",
+                {
+                    skipNegotiation: true,
+                    transport: signalR.HttpTransportType.WebSockets
+                })
+            .build();
+
+        hubConnection.on('Send',
+            function(data) {
+                console.log(data);
+            });
+
+        hubConnection.start().then(function () {
+            console.log('Connected!');
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+
+
+
+    </script>
+}

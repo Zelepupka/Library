@@ -6,6 +6,11 @@
 
 
 <input type="hidden" id="book-id" value="@Model.Id" />
+@if (_signInManager.IsSignedIn(User))
+{
+    <input type="hidden" id="user-name" value="@User.Identity.Name"/>
+}
+
 
 <h1>@Model.Name</h1>
 <span>Publisher: @Model.PublisherName</span>
@@ -45,37 +50,7 @@
     <script src="~/js/app/manageComments.js"></script>
     <script src="~/js/app/manageRatings.js"></script>
     <script src="~/js/Moment.js"></script>
-    <script>
-
-        var hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl("/Books/BookPage")
-            .build();
-
-        hubConnection.on('Send',
-            function(data) {
-                model.comments.push(data);
-            });
-
-        function signalComment() {
-            // addComment();
-            var comment = {
-                content: $('#comment-text').val(),
-                date: "@DateTime.Now",
-                bookId: "@Model.Id",
-                commentUserViewModel: {
-                    id: "@User.Claims.First().Value",
-                    userName: "@User.Identity.Name"
-                }
-            }
-
-            console.log(comment);
-
-            try {
-                hubConnection.invoke('SendComment', comment);
-            } catch (err) {
-                console.error(err);
-            }
-        }
-        hubConnection.start();
-    </script>
+    <script src="~/microsoft/signalr/dist/browser/dist/browser/signalr.js"></script>
+    <script src="~/js/app/signalComments.js"></script>
 }
+

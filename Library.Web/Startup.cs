@@ -22,7 +22,7 @@ using Library.Web.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
-
+using Abp.AspNetCore.SignalR.Hubs;
 
 namespace Library.Web
 {
@@ -87,7 +87,6 @@ namespace Library.Web
                     policy.RequireClaim("scope", "userApi");
                 });
             });
-
             services.AddSignalR();
 
             RecurringJob.AddOrUpdate<RatingService>("Compute-Ratings",x => x.ComputeRating(), Cron.Hourly);
@@ -114,6 +113,14 @@ namespace Library.Web
             app.UseAuthorization();
             app.UseHangfireDashboard();
             app.UseIdentityServer();
+
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("https://localhost:5001/hub")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -121,7 +128,8 @@ namespace Library.Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
                 endpoints.MapHangfireDashboard();
-                endpoints.MapHub<CommentHub>("/Books/BookPage");
+                endpoints.MapHub<AbpCommonHub>("/signalr");
+                endpoints.MapHub<CommentHub>("/hub");
             });
         }
     }
