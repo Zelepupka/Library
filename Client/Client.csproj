@@ -8,6 +8,11 @@
   <ItemGroup>
     <PackageReference Include="IdentityModel" Version="5.1.0" />
     <PackageReference Include="Library.ApiClient" Version="1.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WindowsService\WindowsService.csproj" />
   </ItemGroup>
 
 </Project>

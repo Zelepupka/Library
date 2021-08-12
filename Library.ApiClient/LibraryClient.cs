@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using IdentityModel.Client;
@@ -9,13 +10,23 @@ namespace Library.ApiClient
     {
         public static async Task<HttpClient> GetAppClientAsync(string clientId, string clientSecret, string scope, string url)
         {
-            var client = new HttpClient();
+            var httpHandler = new HttpClientHandler
+            {
+                Proxy = new WebProxy("192.168.7.100:8080")
+                {
+                    BypassProxyOnLocal = true,
+                    UseDefaultCredentials = true,
+                },
+            };
+
+            var client = new HttpClient(handler: httpHandler, disposeHandler: true);
+
             var disco = await client.GetDiscoveryDocumentAsync(url);
             if (disco.IsError)
             {
                 throw new Exception(disco.Error);
             }
-
+       
             var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
             {
                 Address = disco.TokenEndpoint,

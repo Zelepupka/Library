@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -60,10 +62,18 @@ namespace Library.Web
 
             services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
             {
-                options.Authority = "https://localhost:5001";
+                options.Authority = "https://localhost:5000";
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateAudience = false
+                };
+                options.BackchannelHttpHandler = new HttpClientHandler
+                {
+                    Proxy = new WebProxy("192.168.7.100:8080")
+                    {
+                        BypassProxyOnLocal = true,
+                        UseDefaultCredentials = true,
+                    },
                 };
             });
 
